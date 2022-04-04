@@ -1,0 +1,38 @@
+{
+    "name": "cs-310-project",
+    "version": "1.0.0",
+    "description": "cs 310 project",
+    "main": "server.js",
+    "scripts": {
+        "start": "nodemon server.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hoaannguyen07/cs-310-project.git"
+    },
+    "author": "Hoa Nguyen",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/hoaannguyen07/cs-310-project/issues"
+    },
+    "homepage": "https://github.com/hoaannguyen07/cs-310-project#readme",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "connect-flash": "^0.1.1",
+        "connect-pg-simple": "^7.0.0",
+        "cookie-parser": "^1.4.6",
+        "ejs": "^3.1.6",
+        "express": "^4.17.3",
+        "express-session": "^1.17.2",
+        "method-override": "^3.0.0",
+        "passport": "^0.5.2",
+        "passport-local": "^1.0.0",
+        "pg": "^8.7.3"
+    },
+    "devDependencies": {
+        "eslint": "^8.12.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.25.4"
+    }
+}

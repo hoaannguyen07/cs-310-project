@@ -1,0 +1,30 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container">
+    <form
+        class="register-form"
+        name="register"
+        action="/register"
+        method="POST"
+    >
+        <div>
+            <h1 style="color: white">Register</h1>
+            <div>
+                <div class="relative">
+                    <input placeholder="username" name="username" required />
+                </div>
+                <div class="relative">
+                    <input
+                        placeholder="password"
+                        type="password"
+                        name="password"
+                        required
+                    />
+                </div>
+            </div>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+</div>
+
+<%- include("partials/footer.ejs") %>

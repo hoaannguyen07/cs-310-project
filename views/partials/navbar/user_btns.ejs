@@ -1,0 +1,45 @@
+<% if (!currentUser) { %>
+<div style="display: flex">
+    <div class="sidenav-item" style="margin-right: 20px">
+        <a
+            href="/login"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Login"
+            style="color: white; text-decoration: none"
+            ><i class="fas fa-sign-in-alt"></i> Login</a
+        >
+    </div>
+    <div class="sidenav-item">
+        <a
+            href="/register"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Register"
+            style="color: white; text-decoration: none"
+            ><i class="fas fa-user-plus"></i> Register</a
+        >
+    </div>
+</div>
+<% } else { %>
+<div style="display: flex">
+    <div class="sidenav-item" style="margin-right: 20px">
+        <a
+            href="/home"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="<%- currentUser.username %>"
+            style="color: white; text-decoration: none"
+            ><%- currentUser.username %></a
+        >
+    </div>
+    <div class="sidenav-item">
+        <a
+            href="/logout"
+            title="Logout"
+            style="color: white; text-decoration: none"
+            ><i class="fas fa-sign-out-alt"></i> Logout</a
+        >
+    </div>
+</div>
+<% } %>
