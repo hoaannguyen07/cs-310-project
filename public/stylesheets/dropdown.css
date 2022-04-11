@@ -1,0 +1,19 @@
+.profile-dropdown-btn {
+    color: #fff;
+}
+
+.profile-dropdown-btn:hover {
+    color: #fff;
+}
+
+.dropdown-menu {
+    min-width: 7rem;
+    padding: 0.5rem;
+
+    text-align: end;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: auto;
+    right: 0;
+}
