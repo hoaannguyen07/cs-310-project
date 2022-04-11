@@ -2,6 +2,7 @@
 .idea
 
 .env
+development.js
 node_modules/
 
 .monitor
