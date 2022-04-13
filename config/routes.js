@@ -1,5 +1,10 @@
-const { isLoggedIn, requiresLogin } = require("./middlewares/authorization");
+const {
+    isLoggedIn,
+    requiresLogin,
+    requiresAdmin,
+} = require("./middlewares/authorization");
 const blogs = require("../app/blogs");
+const admins = require("../app/admins");
 const users = require("../app/users");
 const monitoring = require("../app/monitoring");
 
@@ -33,6 +38,9 @@ module.exports = (app, passport, db) => {
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
 
     app.get("/home", requiresLogin, blogs.renderHome);
+
+    // admin routes
+    app.get("/admin", requiresAdmin, admins.renderAdminLanding);
 
     app.get("/health", monitoring.health(db));
 

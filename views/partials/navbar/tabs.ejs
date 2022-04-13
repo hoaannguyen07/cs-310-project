@@ -1,6 +1,8 @@
 <div class="flex-box">
-    <h3><a href="#" class="tabs">Home</a>
+    <h3><a href="/home" class="tabs">Home</a>
     <h3><a href="#" class="tabs">Create Post</a>
-    <h3><a href="#" class="tabs">Admin</a>
+    <% if (currentUser.type === "admin") { %>
+        <h3><a href="/admin" class="tabs">Admin</a>
+    <% } %>
     <h3><a href="#" class="tabs">Settings</a>
 </div>
