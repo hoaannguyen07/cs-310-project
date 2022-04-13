@@ -4,13 +4,30 @@
         <%- include("../partials/standard_header.ejs") %>
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/admin-landing.css"
+        />
     </head>
     <body>
         <%- include('../partials/body_start') %>
 
         <div>
             <h1>Admin Settings Page</h1>
+        </div>
+
+        <div class="flex-box-col">
+            <div class="flex-box-row">
+                <a class="btn btn-primary" href="#"><h3>Email List</h3></a>
+
+                <a class="btn btn-primary" href="#"><h3>Edit Users</h3></a>
+                <a class="btn btn-primary" href="#"><h3>Tags</h3></a>
+            </div>
+            <div class="flex-box-row">
+                <a class="btn btn-primary" href="#"><h3>Post Approval</h3></a></h3>
+                <a class="btn btn-primary" href="#"><h3>Comment Approval</h3></a>
+            </div>
         </div>
 
         <%- include("../partials/standard_footer.ejs") %>
