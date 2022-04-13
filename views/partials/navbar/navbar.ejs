@@ -4,5 +4,7 @@
             >CS 310 Project</a
         >
     </h1>
-    <%- include('./tabs.ejs') %> <%- include('./user_btns.ejs') %>
+
+    <% if (currentUser) { %> <%- include('./tabs.ejs') %> <% } %> <%-
+    include('./user_btns.ejs') %>
 </nav>
