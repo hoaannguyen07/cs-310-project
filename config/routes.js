@@ -1,6 +1,7 @@
 const {
     isLoggedIn,
     requiresLogin,
+    requiresBloggerOrAdmin,
     requiresAdmin,
 } = require("./middlewares/authorization");
 const blogs = require("../app/blogs");
@@ -37,7 +38,9 @@ module.exports = (app, passport, db) => {
     app.get("/about-me", requiresLogin, users.renderAboutMe);
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
 
+    // blogs
     app.get("/home", requiresLogin, blogs.renderHome);
+    app.get("/blogs/create", requiresBloggerOrAdmin, blogs.renderCreatePage);
 
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);

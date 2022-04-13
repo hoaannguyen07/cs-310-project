@@ -23,4 +23,15 @@ module.exports = {
 
         return next();
     },
+
+    requiresBloggerOrAdmin: (req, res, next) => {
+        if (
+            !req.user ||
+            !(req.user.type === "blogger" || req.user.type === "admin")
+        ) {
+            return res.sendStatus(401);
+        }
+
+        return next();
+    },
 };
