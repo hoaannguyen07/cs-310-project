@@ -1,7 +1,7 @@
 <div class="flex-box">
     <h3><a href="/home" class="tabs">Home</a>
     <% if (currentUser.type === "blogger" || currentUser.type === "admin") { %>
-        <h3><a href="/blogs/create" class="tabs">Create Post</a>
+        <h3><a href="/blogs/new" class="tabs">Create Post</a>
     <% } %>
     <% if (currentUser.type === "admin") { %>
         <h3><a href="/admin" class="tabs">Admin</a>

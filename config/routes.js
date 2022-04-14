@@ -40,7 +40,8 @@ module.exports = (app, passport, db) => {
 
     // blogs
     app.get("/home", requiresLogin, blogs.renderHome);
-    app.get("/blogs/create", requiresBloggerOrAdmin, blogs.renderCreatePage);
+    app.get("/blogs/new", requiresBloggerOrAdmin, blogs.renderCreatePage);
+    app.post("/blogs/create", requiresBloggerOrAdmin, blogs.createPost);
 
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
