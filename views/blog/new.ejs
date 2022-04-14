@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("../partials/standard_header.ejs") %>
+
+    <!-- Custom CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/stylesheets/admin-landing.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/stylesheets/blog/create-blog.css"
+    />
+  </head>
+  <body>
+    <%- include('../partials/body_start') %>
+
+    <div>
+      <h1>Create Blog Post Page</h1>
+    </div>
+
+    <form class="blog-creation-form" name="post" action="/blogs/create" method="POST">
+      <input placeholder="Title" name="title" required />
+      <textarea placeholder="Type here:" name="body" required></textarea>
+      <button class="btn btn-blog" type="submit">Post</button>
+    </form>
+
+    <%- include("../partials/standard_footer.ejs") %>
+  </body>
+</html>

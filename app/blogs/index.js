@@ -4,6 +4,12 @@ module.exports = {
     },
 
     renderCreatePage: (req, res) => {
-        res.render("blog/create");
+        res.render("blog/new");
     },
+
+    createPost: (req, res) => {
+        console.log(req)
+
+        res.redirect("/blogs/new")
+    }
 };
