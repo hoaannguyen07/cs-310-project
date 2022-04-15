@@ -7,6 +7,7 @@ const {
 const blogs = require("../app/blogs");
 const admins = require("../app/admins");
 const users = require("../app/users");
+const tags = require("../app/tags");
 const monitoring = require("../app/monitoring");
 
 module.exports = (app, passport, db) => {
@@ -47,6 +48,11 @@ module.exports = (app, passport, db) => {
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
 
     app.get("/health", monitoring.health(db));
+
+    // tag
+    app.get("/tags", requiresAdmin, tags.renderViewTagsPage);
+    app.get("/tags/new", requiresAdmin, tags.renderCreatePage);
+    app.post("/tags/create", requiresAdmin, tags.createTag);
 
     app.get("*", (req, res) => {
         res.sendStatus(404);

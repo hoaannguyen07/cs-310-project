@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/tag/show-all.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <h1>Show All Tags</h1>
+        <a class="btn btn-primary" href="/tags/new">Add Tag</a>
+
+        <% if (tags) { %>
+        <table class="tags">
+            <tr>
+                <th>ID</th>
+                <th>Descrption</th>
+                <th>Action</th>
+            </tr>
+            <% tags.forEach(tag => { %>
+            <tr class="tag">
+                <td><%= tag.id %></td>
+                <td><%= tag.description %></td>
+                <td><a class="btn btn-primary" href="#">Update</a></td>
+            </tr>
+            <% }) %>
+        </table>
+        <% } %> <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>
