@@ -51,6 +51,7 @@ module.exports = (app, passport, db) => {
 
     // tag
     app.get("/tags", requiresAdmin, tags.renderViewTagsPage);
+    app.get("/tags/:tag_id", requiresAdmin, tags.renderViewTagPage);
     app.get("/tags/new", requiresAdmin, tags.renderCreatePage);
     app.post("/tags/create", requiresAdmin, tags.createTag);
 

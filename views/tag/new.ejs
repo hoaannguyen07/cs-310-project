@@ -7,7 +7,7 @@
         <link
             rel="stylesheet"
             type="text/css"
-            href="/stylesheets/tag/show-all.css"
+            href="/stylesheets/tag/create-tag.css"
         />
     </head>
     <body>
@@ -17,8 +17,9 @@
             <h1>Create Tag Page</h1>
         </div>
 
-        <form name="post" action="/tags/" method="POST">
-            <input placeholder="Descrpition" name="description" required />
+        <form name="create-tag" action="/tags/" method="POST">
+            <label for="description">Tag Description:</label>
+            <input placeholder="Description" name="description" required />
             <button class="btn btn-tag" type="submit">Post</button>
         </form>
 

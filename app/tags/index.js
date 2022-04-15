@@ -2,26 +2,21 @@ const db = require("../../db");
 
 module.exports = {
     renderViewTagsPage: (req, res) => {
-        // res.render("tag/show_all");
-        /*console.log("descrpition:", description);*/
         db.query("SELECT id, description FROM tags", [], (err, result) => {
             if (err) {
                 req.flash("error", "Unable to query tags");
                 res.render("tag/show_all");
             }
 
-            // console.log(result.rows);
             res.render("tag/show_all", { tags: result.rows });
         });
     },
 
     renderCreatePage: (req, res) => {
-        console.log(req.body);
         res.render("tag/new");
     },
 
     createTag: (req, res) => {
-        console.log(req.body);
         const { description } = req.body;
         console.log("description:", description);
 
@@ -38,5 +33,32 @@ module.exports = {
                 return res.redirect("/admin");
             }
         );
+    },
+
+    renderViewTagPage: (req, res) => {
+        console.log("Params", req.params);
+        let { tag_id } = req.params;
+        try {
+            tag_id = parseInt(tag_id);
+        } catch (error) {
+            console.log(error);
+            req.flash("error", "Unable to query tag");
+            res.redirect("/tags");
+        }
+        console.log(typeof tag_id);
+
+        db.query(
+            "SELECT id, description FROM tags WHERE id=$1",
+            [tag_id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query tag");
+                    res.redirect("/tags");
+                }
+                console.log(result.rows[0]);
+                res.render("tag/tag_info", { tag: result.rows[0] });
+            }
+        );
+        // res.redirect("/tags");
     },
 };
