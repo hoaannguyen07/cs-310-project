@@ -4,14 +4,38 @@
         <%- include("../partials/standard_header.ejs") %>
 
         <!-- Custom CSS -->
-        <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/about-me/edit.css"
+        />
     </head>
     <body>
         <%- include('../partials/body_start') %>
 
-        <div>
-            <h1>Edit About Me Page</h1>
-        </div>
+        <form action="/about-me/update" method="POST">
+            <h1>Edit Profile</h1>
+            <div class="grid-row">
+                <label for="email">Email: </label>
+                <input
+                    value="<%- currentUser.email %>"
+                    type="email"
+                    name="email"
+                    required
+                />
+            </div>
+            <div class="grid-row">
+                <label for="username">Username: </label>
+                <input
+                    value="<%- currentUser.username %>"
+                    name="username"
+                    disabled
+                />
+            </div>
+            <button class="btn btn-primary" type="submit">
+                Update Profile
+            </button>
+        </form>
 
         <%- include("../partials/standard_footer.ejs") %>
     </body>

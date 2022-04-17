@@ -52,4 +52,10 @@ module.exports = {
     renderEditAboutMe: (req, res) => {
         res.render("about_me/edit");
     },
+
+    updateAboutMe: (req, res) => {
+        console.log(req.body);
+
+        res.redirect("/about-me/edit");
+    },
 };

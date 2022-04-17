@@ -37,6 +37,7 @@ module.exports = (app, passport, db) => {
     // about me
     app.get("/about-me", requiresLogin, users.renderAboutMe);
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
+    app.post("/about-me/update", requiresLogin, users.updateAboutMe);
 
     // blogs
     app.get("/home", requiresLogin, blogs.renderHome);
