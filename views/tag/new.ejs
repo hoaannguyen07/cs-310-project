@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/tag/create-tag.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>Create Tag Page</h1>
+        </div>
+
+        <form name="create-tag" action="/tags/" method="POST">
+            <label for="description">Tag Description:</label>
+            <input placeholder="Description" name="description" required />
+            <button class="btn btn-tag" type="submit">Post</button>
+        </form>
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>

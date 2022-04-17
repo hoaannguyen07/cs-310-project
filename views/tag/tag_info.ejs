@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/tag/show-all.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>Update Tag</h1>
+        </div>
+
+        <form name="update-tag" action="#" method="GET">
+            <label for="description">Tag Description: </label>
+            <input value="<%- tag.description %>" name="description" required />
+            <button class="btn btn-tag" type="submit">Update Tag</button>
+        </form>
+
+        <a class="btn btn-danger" href="#">Delete Tag</a>
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>
