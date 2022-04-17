@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+        <div>
+            <h2>Email: <%- currentUser.email %></h2>
+            <h2>Username: <%- currentUser.username %></h2>
+            <h2>Type: <%- currentUser.type %></h2>
+        </div>
+
+        <%- include("../partials/standard_footer.ejs") %>
+
+        <a class="btn btn-primary" href="/about-me/edit">Edit Profile</a>
+    </body>
+</html>

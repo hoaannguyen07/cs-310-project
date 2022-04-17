@@ -7,14 +7,14 @@ module.exports = {
     },
 
     register: (req, res) => {
-        const { username, password } = req.body;
+        const { email, username, password } = req.body;
         const user = "user";
         const saltRounds = 10;
         const hash = bcrypt.hashSync(password, saltRounds);
 
         db.query(
-            "INSERT INTO users(username, password, type) VALUES ($1, $2, $3);",
-            [username, hash, user],
+            "INSERT INTO users(email, username, password, type) VALUES ($1, $2, $3, $4);",
+            [email, username, hash, user],
             (err, result) => {
                 if (err || result.rowCount !== 1) {
                     req.flash(
@@ -45,7 +45,11 @@ module.exports = {
         return res.redirect("/login");
     },
 
-    renderHome: (req, res) => {
-        res.render("home");
+    renderAboutMe: (req, res) => {
+        res.render("about_me/show");
+    },
+
+    renderEditAboutMe: (req, res) => {
+        res.render("about_me/edit");
     },
 };

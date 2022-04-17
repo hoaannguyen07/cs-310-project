@@ -1,5 +1,5 @@
-<% if (!currentUser) { %>
-<div style="display: flex">
+<div class="flex-box">
+    <% if (!currentUser) { %>
     <div class="sidenav-item" style="margin-right: 20px">
         <a
             href="/login"
@@ -20,26 +20,31 @@
             ><i class="fas fa-user-plus"></i> Register</a
         >
     </div>
-</div>
-<% } else { %>
-<div style="display: flex">
-    <div class="sidenav-item" style="margin-right: 20px">
-        <a
-            href="/home"
-            data-toggle="tooltip"
-            data-placement="bottom"
-            title="<%- currentUser.username %>"
-            style="color: white; text-decoration: none"
-            ><%- currentUser.username %></a
+    <% } else { %>
+    <div class="dropdown">
+        <button
+            class="btn profile-dropdown-btn dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
         >
-    </div>
-    <div class="sidenav-item">
-        <a
-            href="/logout"
-            title="Logout"
-            style="color: white; text-decoration: none"
-            ><i class="fas fa-sign-out-alt"></i> Logout</a
+            <%- currentUser.email %>
+        </button>
+        <ul
+            class="dropdown-menu dropdown-menu-right"
+            aria-labelledby="dropdownMenuButton1"
         >
+            <li>
+                <a class="dropdown-item" href="/about-me">About Me</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li>
+                <a class="dropdown-item" href="/logout"
+                    ><i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </li>
+        </ul>
     </div>
+    <% } %>
 </div>
-<% } %>
