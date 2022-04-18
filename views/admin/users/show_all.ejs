@@ -33,9 +33,25 @@
                 <td>
                     <% if (user.username != currentUser.username || user.type !=
                     'admin') { %>
-                    <a class="btn btn-primary" href="/users/user/<%- user.id %>"
-                        >Update</a
-                    >
+                    <div class="action-btns">
+                        <a
+                            class="btn btn-primary"
+                            href="/users/user/<%- user.id %>"
+                            >Update</a
+                        >
+                        <form
+                            action="/users/user/<%= user.username %>/delete"
+                            method="POST"
+                        >
+                            <button
+                                class="btn btn-danger"
+                                name="username"
+                                value="<%= user.username %>"
+                            >
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                     <% } %>
                 </td>
             </tr>

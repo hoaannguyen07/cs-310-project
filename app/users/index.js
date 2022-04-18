@@ -96,7 +96,7 @@ module.exports = {
             user_id = parseInt(user_id);
         } catch (error) {
             req.flash("error", "Unable to query user");
-            return res.redirect("/user_id");
+            return res.redirect("/users");
         }
 
         db.query(
@@ -134,6 +134,26 @@ module.exports = {
                     );
                 }
 
+                return res.redirect("/users");
+            }
+        );
+    },
+
+    deleteUserInfo: (req, res) => {
+        let { username } = req.params;
+
+        db.query(
+            "DELETE FROM users WHERE username=$1",
+            [username],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", `Unable to delete user ${username}`);
+                } else {
+                    req.flash(
+                        "success",
+                        `Successfully deleted user ${username}`
+                    );
+                }
                 return res.redirect("/users");
             }
         );

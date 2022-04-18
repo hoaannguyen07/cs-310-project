@@ -39,6 +39,19 @@ module.exports = (app, passport, db) => {
     app.get("/about-me", requiresLogin, users.renderAboutMe);
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
     app.post("/about-me/update", requiresLogin, users.updateAboutMe);
+    // user info
+    app.get("/users", requiresAdmin, users.renderUserListPage);
+    app.get("/users/user/:user_id", requiresAdmin, users.renderUserInfoPage);
+    app.post(
+        "/users/user/:user_id/update",
+        requiresAdmin,
+        users.updateUserInfo
+    );
+    app.post(
+        "/users/user/:username/delete",
+        requiresAdmin,
+        users.deleteUserInfo
+    );
 
     // blogs
     app.get("/home", requiresLogin, blogs.renderHome);
@@ -47,13 +60,6 @@ module.exports = (app, passport, db) => {
 
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
-    app.get("/users", requiresAdmin, users.renderUserListPage);
-    app.get("/users/user/:user_id", requiresAdmin, users.renderUserInfoPage);
-    app.post(
-        "/users/user/:user_id/update",
-        requiresAdmin,
-        users.updateUserInfo
-    );
 
     app.get("/health", monitoring.health(db));
 
