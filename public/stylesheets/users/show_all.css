@@ -1,0 +1,31 @@
+.users {
+    width: 40%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+tr {
+    width: 100%;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td,
+th {
+    min-width: 50px;
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.action-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+form button {
+    width: 100%;
+}
