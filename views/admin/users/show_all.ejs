@@ -20,7 +20,6 @@
         <% if (users) { %>
         <table class="users">
             <tr>
-                <th>ID</th>
                 <th>Email</th>
                 <th>Username</th>
                 <th>User Type</th>
@@ -28,7 +27,6 @@
             </tr>
             <% users.forEach(user => { %>
             <tr class="users">
-                <td><%= user.id %></td>
                 <td><%= user.email %></td>
                 <td><%= user.username %></td>
                 <td><%= user.type %></td>
