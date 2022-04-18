@@ -55,7 +55,21 @@ module.exports = {
 
     updateAboutMe: (req, res) => {
         console.log(req.body);
+        const { email, username, user_type } = req.body;
 
-        res.redirect("/about-me/edit");
+        db.query(
+            "UPDATE users SET email=$1 WHERE username=$2;",
+            [email, username],
+            (err, result) => {
+                // failure if there's an error or if anything other than 1 row is
+                if (err || result.rowCount != 1) {
+                    req.flash("error", "Error updating user information");
+                    return res.redirect("/about-me/edit");
+                }
+
+                req.flash("success", "Successfully updated user information");
+                return res.redirect("/about-me");
+            }
+        );
     },
 };

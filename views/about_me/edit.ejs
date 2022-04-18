@@ -29,7 +29,15 @@
                 <input
                     value="<%- currentUser.username %>"
                     name="username"
-                    disabled
+                    class="disabled"
+                />
+            </div>
+            <div class="grid-row">
+                <label for="type">Use Type: </label>
+                <input
+                    value="<%- currentUser.type %>"
+                    name="user_type"
+                    class="disabled"
                 />
             </div>
             <button class="btn btn-primary" type="submit">
