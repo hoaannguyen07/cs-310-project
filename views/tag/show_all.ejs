@@ -19,18 +19,27 @@
         <% if (tags) { %>
         <table class="tags">
             <tr>
-                <th>ID</th>
-                <th>Descrption</th>
+                <th style="min-width: 150px">Tag Name</th>
                 <th>Action</th>
             </tr>
             <% tags.forEach(tag => { %>
             <tr class="tag">
-                <td><%= tag.id %></td>
                 <td><%= tag.description %></td>
                 <td>
-                    <a class="btn btn-primary" href="/tags/<%- tag.id %>"
-                        >Update</a
-                    >
+                    <div class="action-btns">
+                        <a
+                            class="btn btn-primary"
+                            href="/tags/tag/<%- tag.id %>"
+                            >Update</a
+                        >
+
+                        <form
+                            action="/tags/tag/<%= tag.id %>/delete"
+                            method="POST"
+                        >
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             <% }) %>
