@@ -47,6 +47,7 @@ module.exports = (app, passport, db) => {
 
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
+    app.get("/users", requiresAdmin, users.renderUserListPage);
 
     app.get("/health", monitoring.health(db));
 

@@ -71,4 +71,19 @@ module.exports = {
             }
         );
     },
+
+    renderUserListPage: (req, res) => {
+        db.query(
+            "SELECT id, email, username, type FROM users ORDER BY type ASC",
+            [],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query users");
+                    res.render("admin/users/show_all");
+                }
+
+                res.render("admin/users/show_all", { users: result.rows });
+            }
+        );
+    },
 };
