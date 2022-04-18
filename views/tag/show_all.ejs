@@ -19,13 +19,11 @@
         <% if (tags) { %>
         <table class="tags">
             <tr>
-                <th>ID</th>
-                <th>Descrption</th>
+                <th style="min-width: 150px">Tag Name</th>
                 <th>Action</th>
             </tr>
             <% tags.forEach(tag => { %>
             <tr class="tag">
-                <td><%= tag.id %></td>
                 <td><%= tag.description %></td>
                 <td>
                     <div class="action-btns">

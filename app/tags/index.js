@@ -2,14 +2,18 @@ const db = require("../../db");
 
 module.exports = {
     renderViewTagsPage: (req, res) => {
-        db.query("SELECT id, description FROM tags", [], (err, result) => {
-            if (err) {
-                req.flash("error", "Unable to query tags");
-                res.render("tag/show_all");
-            }
+        db.query(
+            "SELECT id, description FROM tags ORDER BY description ASC",
+            [],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query tags");
+                    res.render("tag/show_all");
+                }
 
-            res.render("tag/show_all", { tags: result.rows });
-        });
+                res.render("tag/show_all", { tags: result.rows });
+            }
+        );
     },
 
     renderCreatePage: (req, res) => {
