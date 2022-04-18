@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/users/show_all.css"
+        />
+    </head>
+    <body>
+        <%- include('../../partials/body_start') %>
+
+        <div>
+            <h1>List of All Users</h1>
+        </div>
+
+        <% if (users) { %>
+        <table class="users">
+            <tr>
+                <th>Email</th>
+                <th>Username</th>
+                <th>User Type</th>
+                <th>Action</th>
+            </tr>
+            <% users.forEach(user => { %>
+            <tr class="users">
+                <td><%= user.email %></td>
+                <td><%= user.username %></td>
+                <td><%= user.type %></td>
+                <td>
+                    <% if (user.username != currentUser.username || user.type !=
+                    'admin') { %>
+                    <div class="action-btns">
+                        <a
+                            class="btn btn-primary"
+                            href="/users/user/<%- user.id %>"
+                            >Update</a
+                        >
+                        <form
+                            action="/users/user/<%= user.username %>/delete"
+                            method="POST"
+                        >
+                            <button
+                                class="btn btn-danger"
+                                name="username"
+                                value="<%= user.username %>"
+                            >
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                    <% } %>
+                </td>
+            </tr>
+            <% }) %>
+        </table>
+        <% } %> <%- include("../../partials/standard_footer.ejs") %>
+    </body>
+</html>
