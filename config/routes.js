@@ -48,6 +48,12 @@ module.exports = (app, passport, db) => {
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
     app.get("/users", requiresAdmin, users.renderUserListPage);
+    app.get("/users/user/:user_id", requiresAdmin, users.renderUserInfoPage);
+    app.post(
+        "/users/user/:user_id/update",
+        requiresAdmin,
+        users.updateUserInfo
+    );
 
     app.get("/health", monitoring.health(db));
 

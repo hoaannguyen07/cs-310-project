@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/about-me/edit.css"
+        />
+    </head>
+    <body>
+        <%- include('../../partials/body_start') %> <% if (user) { %>
+        <form action="/users/user/<%= user.id %>/update" method="POST">
+            <h1>Edit Profile</h1>
+            <div class="grid-row">
+                <label for="email">Email: </label>
+                <input
+                    value="<%- user.email %>"
+                    type="email"
+                    name="email"
+                    class="disabled"
+                />
+            </div>
+            <div class="grid-row">
+                <label for="username">Username: </label>
+                <input
+                    value="<%- user.username %>"
+                    name="username"
+                    class="disabled"
+                />
+            </div>
+            <div class="grid-row">
+                <label for="type">User Type: </label>
+                <input value="<%- user.type %>" name="user_type" required />
+            </div>
+            <button class="btn btn-primary" type="submit">
+                Update User Information
+            </button>
+        </form>
+        <% } %> <%- include("../../partials/standard_footer.ejs") %>
+    </body>
+</html>
