@@ -67,9 +67,6 @@ module.exports = {
     },
 
     updateTag: (req, res) => {
-        // const { description } = req.body;
-        // console.log("description:", description);
-
         let { tag_id } = req.params;
         try {
             tag_id = parseInt(tag_id);
@@ -80,9 +77,6 @@ module.exports = {
         }
 
         const { description } = req.body;
-
-        console.log(typeof tag_id, tag_id);
-        console.log(description);
 
         db.query(
             "UPDATE tags SET description=$1 WHERE id=$2;",
@@ -97,5 +91,26 @@ module.exports = {
                 return res.redirect("/tags");
             }
         );
+    },
+
+    deleteTag: (req, res) => {
+        let { tag_id } = req.params;
+        try {
+            tag_id = parseInt(tag_id);
+        } catch (error) {
+            console.log(error);
+            req.flash("error", "Unable to update tag");
+            res.redirect(`tags/tag/${tag_id}`);
+        }
+
+        db.query("DELETE FROM tags WHERE id=$1;", [tag_id], (err, result) => {
+            if (err) {
+                req.flash("error", `Unable to delete tag ${tag_id}`);
+            } else {
+                req.flash("success", `Tag ${tag_id} deleted successfully.`);
+            }
+
+            return res.redirect("/tags");
+        });
     },
 };

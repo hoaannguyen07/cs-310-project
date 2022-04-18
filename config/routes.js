@@ -69,6 +69,8 @@ module.exports = (app, passport, db) => {
     app.get("/tags/new", requiresAdmin, tags.renderCreatePage);
     app.post("/tags/create", requiresAdmin, tags.createTag);
     app.post("/tags/tag/:tag_id/update", requiresAdmin, tags.updateTag);
+    app.post("/tags/tag/:tag_id/delete", requiresAdmin, tags.deleteTag);
+
     app.get("*", (req, res) => {
         res.sendStatus(404);
     });
