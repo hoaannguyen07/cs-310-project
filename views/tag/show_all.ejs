@@ -28,9 +28,26 @@
                 <td><%= tag.id %></td>
                 <td><%= tag.description %></td>
                 <td>
-                    <a class="btn btn-primary" href="/tags/<%- tag.id %>"
-                        >Update</a
-                    >
+                    <div class="action-btns">
+                        <a
+                            class="btn btn-primary"
+                            href="/tags/tag/<%- tag.id %>"
+                            >Update</a
+                        >
+
+                        <form
+                            action="/tags/tag/<%= tag.id %>/delete"
+                            method="POST"
+                        >
+                            <button
+                                class="btn btn-danger"
+                                name="tag_id"
+                                value="<%= tag.id %>"
+                            >
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             <% }) %>
