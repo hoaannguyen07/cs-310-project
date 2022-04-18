@@ -54,7 +54,6 @@ module.exports = {
     },
 
     updateAboutMe: (req, res) => {
-        console.log(req.body);
         const { email, username, user_type } = req.body;
 
         db.query(
