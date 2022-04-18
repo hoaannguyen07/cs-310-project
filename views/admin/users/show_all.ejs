@@ -31,9 +31,12 @@
                 <td><%= user.username %></td>
                 <td><%= user.type %></td>
                 <td>
+                    <% if (user.username != currentUser.username || user.type !=
+                    'admin') { %>
                     <a class="btn btn-primary" href="/users/user/<%- user.id %>"
                         >Update</a
                     >
+                    <% } %>
                 </td>
             </tr>
             <% }) %>
