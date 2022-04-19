@@ -24,3 +24,13 @@ th {
     text-align: center;
     padding: 8px;
 }
+
+.action-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+form button {
+    width: 100%;
+}

@@ -2,14 +2,18 @@ const db = require("../../db");
 
 module.exports = {
     renderViewTagsPage: (req, res) => {
-        db.query("SELECT id, description FROM tags", [], (err, result) => {
-            if (err) {
-                req.flash("error", "Unable to query tags");
-                res.render("tag/show_all");
-            }
+        db.query(
+            "SELECT id, description FROM tags ORDER BY description ASC",
+            [],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query tags");
+                    res.render("tag/show_all");
+                }
 
-            res.render("tag/show_all", { tags: result.rows });
-        });
+                res.render("tag/show_all", { tags: result.rows });
+            }
+        );
     },
 
     renderCreatePage: (req, res) => {
@@ -36,7 +40,7 @@ module.exports = {
     },
 
     renderViewTagPage: (req, res) => {
-        console.log("Params", req.params);
+        // console.log("Params", req.params);
         let { tag_id } = req.params;
         try {
             tag_id = parseInt(tag_id);
@@ -45,7 +49,7 @@ module.exports = {
             req.flash("error", "Unable to query tag");
             res.redirect("/tags");
         }
-        console.log(typeof tag_id);
+        // console.log(typeof tag_id);
 
         db.query(
             "SELECT id, description FROM tags WHERE id=$1",
@@ -55,10 +59,58 @@ module.exports = {
                     req.flash("error", "Unable to query tag");
                     res.redirect("/tags");
                 }
-                console.log(result.rows[0]);
+                // console.log(result.rows[0]);
                 res.render("tag/tag_info", { tag: result.rows[0] });
             }
         );
         // res.redirect("/tags");
+    },
+
+    updateTag: (req, res) => {
+        let { tag_id } = req.params;
+        try {
+            tag_id = parseInt(tag_id);
+        } catch (error) {
+            console.log(error);
+            req.flash("error", "Unable to update tag");
+            res.redirect(`tags/tag/${tag_id}`);
+        }
+
+        const { description } = req.body;
+
+        db.query(
+            "UPDATE tags SET description=$1 WHERE id=$2;",
+            [description, tag_id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", `Unable to update tag ${tag_id}`);
+                } else {
+                    req.flash("success", `Tag ${tag_id} updated successfully.`);
+                }
+
+                return res.redirect("/tags");
+            }
+        );
+    },
+
+    deleteTag: (req, res) => {
+        let { tag_id } = req.params;
+        try {
+            tag_id = parseInt(tag_id);
+        } catch (error) {
+            console.log(error);
+            req.flash("error", "Unable to update tag");
+            res.redirect(`tags/tag/${tag_id}`);
+        }
+
+        db.query("DELETE FROM tags WHERE id=$1;", [tag_id], (err, result) => {
+            if (err) {
+                req.flash("error", `Unable to delete tag ${tag_id}`);
+            } else {
+                req.flash("success", `Tag ${tag_id} deleted successfully.`);
+            }
+
+            return res.redirect("/tags");
+        });
     },
 };
