@@ -1,0 +1,7 @@
+.blogs_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(150px, 1fr);
+    gap: 25px;
+    justify-content: center;
+}

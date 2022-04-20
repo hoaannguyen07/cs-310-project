@@ -1,10 +1,6 @@
 const db = require("../../db");
 
 module.exports = {
-    renderHome: (req, res) => {
-        res.render("home");
-    },
-
     renderCreatePage: (req, res) => {
         res.render("blog/new");
     },
@@ -33,18 +29,23 @@ module.exports = {
             }
         );
     },
-    /*
-    renderViewBlogPage: (req, res) => {
-        db.query("SELECT id, description FROM tags", [], (err, result) => {
-            if (err) {
-                req.flash("error", "Unable to query tags");
-                res.render("tag/show_all");
+
+    renderHome: (req, res) => {
+        db.query(
+            "SELECT id, user_id, title, body, created_at FROM posts ORDER BY created_at DESC",
+            [],
+            (err, result) => {
+                if (err) {
+                    console.log("THERES AN ERROR");
+                    req.flash("error", "Unable to query tags");
+                    res.render("home", { blogs: result.rows });
+                }
+                console.log(result.rows);
+                res.render("home", { blogs: result.rows });
             }
-
-            res.render("tag/show_all", { tags: result.rows });
-        });
+        );
     },
-
+    /*
     updatePost: (req, res) => {
         console.log(req.body);
         const { title, body } = req.body;
