@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%- include("../../partials/standard_header.ejs") %>
+        <%- include("../partials/standard_header.ejs") %>
 
         <!-- Custom CSS -->
         <link
@@ -11,7 +11,7 @@
         />
     </head>
     <body>
-        <%- include('../../partials/body_start') %>
+        <%- include('../partials/body_start') %>
 
         <div>
             <h1>List of All Users</h1>
@@ -43,13 +43,7 @@
                             action="/users/user/<%= user.username %>/delete"
                             method="POST"
                         >
-                            <button
-                                class="btn btn-danger"
-                                name="username"
-                                value="<%= user.username %>"
-                            >
-                                Delete
-                            </button>
+                            <button class="btn btn-danger">Delete</button>
                         </form>
                     </div>
                     <% } %>
@@ -57,6 +51,6 @@
             </tr>
             <% }) %>
         </table>
-        <% } %> <%- include("../../partials/standard_footer.ejs") %>
+        <% } %> <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>

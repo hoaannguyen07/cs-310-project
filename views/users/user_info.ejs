@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%- include("../../partials/standard_header.ejs") %>
+        <%- include("../partials/standard_header.ejs") %>
 
         <!-- Custom CSS -->
         <link
@@ -11,7 +11,7 @@
         />
     </head>
     <body>
-        <%- include('../../partials/body_start') %> <% if (user) { %>
+        <%- include('../partials/body_start') %> <% if (user) { %>
         <form action="/users/user/<%= user.id %>/update" method="POST">
             <h1>Edit Profile</h1>
             <div class="grid-row">
@@ -39,6 +39,6 @@
                 Update User Information
             </button>
         </form>
-        <% } %> <%- include("../../partials/standard_footer.ejs") %>
+        <% } %> <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>
