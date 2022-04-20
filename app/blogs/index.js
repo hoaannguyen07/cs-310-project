@@ -40,11 +40,17 @@ module.exports = {
                     req.flash("error", "Unable to query tags");
                     res.render("home", { blogs: result.rows });
                 }
-                console.log(result.rows);
                 res.render("home", { blogs: result.rows });
             }
         );
     },
+
+    showPost: (req, res) => {
+        let { blog_id } = req.params;
+        console.log(blog_id);
+        res.redirect("/home");
+    },
+
     /*
     updatePost: (req, res) => {
         console.log(req.body);
