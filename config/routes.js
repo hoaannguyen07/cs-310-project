@@ -9,6 +9,7 @@ const admins = require("../app/admins");
 const users = require("../app/users");
 const tags = require("../app/tags");
 const monitoring = require("../app/monitoring");
+const appr_comments = require("../app/appr_comments");
 
 module.exports = (app, passport, db) => {
     app.use((req, res, next) => {
@@ -70,6 +71,9 @@ module.exports = (app, passport, db) => {
     app.post("/tags/create", requiresAdmin, tags.createTag);
     app.post("/tags/tag/:tag_id/update", requiresAdmin, tags.updateTag);
     app.post("/tags/tag/:tag_id/delete", requiresAdmin, tags.deleteTag);
+
+    // appr_comments
+    app.get("/appr_comments", requiresAdmin, appr_comments.renderApprCommPage);
 
     app.get("*", (req, res) => {
         res.sendStatus(404);

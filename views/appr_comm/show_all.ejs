@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/tag/show-all.css" />
+</head>
+
+<body>
+    <%- include('../partials/body_start') %>
+
+        <h1>Displaying All Unapproved Comments</h1>
+        <!-- <a class="btn btn-primary" href="/tags/new">Add Tag</a> -->
+
+        <% if (unapproved_comments) { %>
+            <table class="tags">
+                <tr>
+                    <th style="min-width: 150px">Comment ID</th>
+                    <th style="min-width: 150px">User ID</th>
+                    <th style="min-width: 150px">Post ID</th>
+                    <th style="min-width: 150px">Body</th>
+                    <th>Action</th>
+                </tr>
+                <% unapproved_comments.forEach(unapproved_comment => { %>
+                    <tr class="tag">
+                        <td>
+                            <%= unapproved_comment.id %>
+                        </td>
+                        <td>
+                            <%= unapproved_comment.user_id %>
+                        </td>
+                        <td>
+                            <%= unapproved_comment.post_id %>
+                        </td>
+                        <td>
+                            <%= unapproved_comment.body %>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <a class="btn btn-primary" href="#">Update</a>
+
+                                <form action="#" method="GET">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </table>
+            <% } %>
+                <%- include("../partials/standard_footer.ejs") %>
+</body>
+
+</html>
