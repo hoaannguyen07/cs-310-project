@@ -1,7 +1,22 @@
 .blogs_container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: minmax(150px, 1fr);
-    gap: 25px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+}
+
+.card {
+    width: 80%;
+    padding: 15px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+
+.card-body {
+    padding: 16px 0;
+    margin-bottom: 32px;
+}
+
+a {
+    max-width: 200px;
+    justify-self: end;
 }

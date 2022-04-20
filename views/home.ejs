@@ -19,17 +19,18 @@
 
         <p></p>
 
-        <div class="blogs_container">
+        <% if (blogs) { %>
+             <% blogs.forEach(blog => { %>
             <div class="card">
                 <div class="card-body">
-                    <h5>Title: Title</h5>
-                    <p>Caption: This is a caption dfkjdkfjdkfjdkfjdkfdjfkdjk</p>
-                    <button class="btn btn-primary" type="submit">
-                        Go to Post
-                    </button>
+                    <h5><td><%= blog.title %></td></h5>
+                    <td><%= blog.body %></td>
+                    </div>
+                    <a class="btn btn-primary" type="submit"> Go to Post </a>
                 </div>
             </div>
-        </div>
+            <% }) %> 
+        <% } %>
 
         <%- include("partials/standard_footer.ejs") %>
     </body>
