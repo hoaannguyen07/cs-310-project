@@ -31,7 +31,7 @@ module.exports = {
     },
 
     renderLogin: (req, res) => {
-        return res.render("login");
+        return res.render("users/login");
     },
 
     login: (req, res) => {
