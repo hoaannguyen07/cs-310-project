@@ -74,7 +74,7 @@ module.exports = {
 
     renderUserListPage: (req, res) => {
         db.query(
-            "SELECT id, email, username, type FROM users ORDER BY type ASC",
+            "SELECT id, email, username, type FROM users ORDER BY type ASC, username ASC",
             [],
             (err, result) => {
                 if (err) {
