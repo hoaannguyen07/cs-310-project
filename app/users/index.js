@@ -79,10 +79,10 @@ module.exports = {
             (err, result) => {
                 if (err) {
                     req.flash("error", "Unable to query users");
-                    return res.render("admin/users/show_all");
+                    return res.render("users/show_all");
                 }
 
-                return res.render("admin/users/show_all", {
+                return res.render("users/show_all", {
                     users: result.rows,
                 });
             }
@@ -107,7 +107,7 @@ module.exports = {
                     req.flash("error", "Unable to query user");
                     return res.redirect("/users");
                 }
-                return res.render("admin/users/user_info", {
+                return res.render("users/user_info", {
                     user: result.rows[0],
                 });
             }
