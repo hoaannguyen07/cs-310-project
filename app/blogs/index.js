@@ -119,38 +119,71 @@ module.exports = {
     },
 
     updatePost: (req, res) => {
-        console.log(req.params);
-        console.log(Object.entries(req.body));
-        // console.log(req.body[`tag_${1}`]);
-
         const { blog_id } = req.params;
         const { title, body } = req.body;
 
-        const tag_id_regex = /tag_[1-9]/;
+        const tag_id_regex = /tag_[0-9]/;
         const tag_id_selected = [];
         Object.entries(req.body).forEach(([key, value]) => {
             const match_tag_id = key.match(tag_id_regex);
-            console.log("Matches: ", match_tag_id);
             if (match_tag_id) {
                 tag_id_selected.push(value);
             }
         });
 
-        console.log(tag_id_selected);
+        // update blog info
+        db.query(
+            "UPDATE posts SET title=$1, body=$2 WHERE id=$3;",
+            [title, body, blog_id],
+            (err, result) => {
+                if (err || result.rowCount !== 1) {
+                    req.flash("error", "Unable to update post.");
+                    return res.redirect(`/blogs/blog/${blog_id}`);
+                }
 
-        // db.query(
-        //     "UPDATE posts SET title=$1, body=$2 WHERE id=$3;",
-        //     [title, body, blog_id],
-        //     (err, result) => {
-        //         if (err || result.rowCount !== 1) {
-        //             req.flash("error", "Unable to edit post.");
-        //         } else {
-        //             req.flash("success", "Successfully edited post.");
-        //         }
-        //         res.redirect(`/blogs/blog/${blog_id}`);
-        //     }
-        // );
-        return res.redirect(`/blogs/blog/${blog_id}/edit`);
+                // delete all tags associated with post & then recreate the tags with the new set of tags
+                db.query(
+                    "DELETE FROM post_tags WHERE post_id=$1",
+                    [blog_id],
+                    (delete_blog_tags_err, delete_blog_tags_result) => {
+                        if (delete_blog_tags_err) {
+                            req.flash("error", "Unable to update post.");
+                            return res.redirect(`/blogs/blog/${blog_id}`);
+                        }
+
+                        // prep query to add in all tags selected to be updated
+                        let query = "";
+                        tag_id_selected.forEach((tag) => {
+                            query += `INSERT INTO post_tags(post_id, tag_id) VALUES ('${blog_id}', '${tag}');`;
+                        });
+
+                        db.query(
+                            query,
+                            [],
+                            (insert_blog_tags_err, insert_blog_tags_result) => {
+                                if (insert_blog_tags_err) {
+                                    req.flash(
+                                        "error",
+                                        "Unable to update post."
+                                    );
+                                    return res.redirect(
+                                        `/blogs/blog/${blog_id}`
+                                    );
+                                }
+
+                                req.flash(
+                                    "success",
+                                    "Successfully updated post."
+                                );
+                                return res.redirect(`/blogs/blog/${blog_id}`);
+                            }
+                        );
+                    }
+                );
+
+                // return res.redirect(`/blogs/blog/${blog_id}/edit`);
+            }
+        );
     },
 
     deletePost: (req, res) => {
