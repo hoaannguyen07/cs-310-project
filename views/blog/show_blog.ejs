@@ -14,7 +14,9 @@
         <%- include('../partials/body_start') %>
 
         <div class="blog_actions">
-            <a class="btn btn-primary" href="#">Update</a>
+            <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/edit"
+                >Update</a
+            >
             <form action="#" method="GET">
                 <button class="btn btn-danger">Delete</button>
             </form>

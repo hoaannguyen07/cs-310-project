@@ -1,3 +1,5 @@
+const db = require("../../db");
+
 module.exports = {
     isLoggedIn: (req, res, next) => {
         if (req.user) {
@@ -31,6 +33,31 @@ module.exports = {
         ) {
             return res.sendStatus(401);
         }
+
+        return next();
+    },
+
+    requiresBlogCreator: (req, res, next) => {
+        let { blog_id } = req.params;
+
+        db.query(
+            "SELECT user_id FROM posts WHERE posts.id = $1;",
+            [blog_id],
+            (err, result) => {
+                if (err || result.rowCount != 1) {
+                    console.log("THERES AN ERROR");
+                    req.flash("error", "Unauthorized to edit blog");
+                    res.redirect("/home");
+                }
+
+                const created_by_id = result.rows[0].user_id;
+
+                if (req.user.id != parseInt(created_by_id)) {
+                    req.flash("error", "Unauthorized to edit blog");
+                    res.redirect("/home");
+                }
+            }
+        );
 
         return next();
     },

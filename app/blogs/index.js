@@ -63,26 +63,21 @@ module.exports = {
         );
     },
 
-    /*
-    updatePost: (req, res) => {
+    editPost: (req, res) => {
         console.log(req.body);
-        const { title, body } = req.body;
-        console.log("title:", title);
-        console.log("body:", body);
-        console.log("user id:", req.user.id);
+        const { blog_id } = req.params;
 
         db.query(
-            "UPDATE unapproved_posts SET title= $1, body=$2 WHERE id=$3",
-            [title, body, req.user.id],
+            "SELECT id, title, body FROM posts WHERE id=$1;",
+            [blog_id],
             (err, result) => {
                 if (err || result.rowCount !== 1) {
                     req.flash("error", "Unable to update post.");
-                    return res.redirect("/blogs/");
+                    return res.redirect(`/blogs/blog/${blog_id}`);
                 }
-
                 req.flash("success", "Post updated successfully.");
-                return res.redirect("/home");
+                res.render("blog/edit", { blog: result.rows[0] });
             }
         );
-    },*/
+    },
 };

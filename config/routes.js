@@ -3,6 +3,7 @@ const {
     requiresLogin,
     requiresBloggerOrAdmin,
     requiresAdmin,
+    requiresBlogCreator,
 } = require("./middlewares/authorization");
 const blogs = require("../app/blogs");
 const admins = require("../app/admins");
@@ -58,6 +59,7 @@ module.exports = (app, passport, db) => {
     app.get("/blogs/new", requiresBloggerOrAdmin, blogs.renderCreatePage);
     app.post("/blogs/create", requiresBloggerOrAdmin, blogs.createPost);
     app.get("/blogs/blog/:blog_id", requiresLogin, blogs.showPost);
+    app.get("/blogs/blog/:blog_id/edit", requiresBlogCreator, blogs.editPost);
     //app.post("/blogs/update", requiresBloggerOrAdmin, blogs.updatePost);
 
     // admin routes

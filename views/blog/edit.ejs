@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/admin-landing.css"
+        />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/blog/edit_blog.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>Edit Blog Post Page</h1>
+        </div>
+
+        <form
+            class="blog-creation-form"
+            name="post"
+            action="/blogs/create"
+            method="POST"
+        >
+            <input
+                placeholder="Title"
+                name="title"
+                value="<%- blog.title %>"
+                required
+            />
+            <textarea name="body" required><%- blog.body %></textarea>
+            <div class="btns">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+        </form>
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>
