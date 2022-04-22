@@ -1,8 +1,7 @@
 .blog-creation-form {
     width: 70%;
     min-height: 60vh;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 20px auto;
 
     display: flex;
     flex-direction: column;
@@ -10,9 +9,41 @@
     align-items: center;
 }
 
-.blog-creation-form > input,
-.blog-creation-form > textarea {
+.blog-creation-form > * {
     width: 90%;
+    margin-bottom: 20px;
+}
+
+.tag_list {
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.tag_check_box {
+    margin-right: 100px;
+    margin-bottom: 15px;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 5px;
+}
+
+.input_grp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.input_grp > input {
+    width: 100%;
+}
+
+input[name="title"] {
+    font-size: 1.5rem;
 }
 
 textarea {

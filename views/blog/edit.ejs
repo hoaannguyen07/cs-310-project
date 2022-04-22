@@ -29,13 +29,73 @@
             action="/blogs/blog/<%= blog.id %>/update"
             method="POST"
         >
-            <input
-                placeholder="Title"
-                name="title"
-                value="<%- blog.title %>"
-                required
-            />
-            <textarea name="body" required><%- blog.body %></textarea>
+            <div class="tag_list">
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_1" value="1" />
+                    <label for="tag_1"> tag 1</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_2" value="2" />
+                    <label for="tag_2"> tag 2</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_3" value="3" />
+                    <label for="tag_3"> tag 3</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_4" value="4" />
+                    <label for="tag_4"> tag 4</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_5" value="5" />
+                    <label for="tag_5"> tag 5</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_6" value="6" />
+                    <label for="tag_6"> tag 6</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_7" value="7" />
+                    <label for="tag_7"> tag 7</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_8" value="8" />
+                    <label for="tag_8"> tag 8</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_9" value="9" />
+                    <label for="tag_9"> tag 9</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_10" value="10" />
+                    <label for="tag_10"> tag 10</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_11" value="11" />
+                    <label for="tag_11"> tag 11</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_11" value="11" />
+                    <label for="tag_11"> tag 11</label>
+                </div>
+                <div class="tag_check_box">
+                    <input type="checkbox" name="tag_12" value="12" />
+                    <label for="tag_12"> tag 12</label>
+                </div>
+            </div>
+            <div class="input_grp">
+                <label for="title"><h4>Title</h4></label>
+                <input
+                    placeholder="Title"
+                    name="title"
+                    value="<%- blog.title %>"
+                    required
+                />
+            </div>
+            <div class="input_grp">
+                <label for="body"><h4>Body</h4></label>
+                <textarea name="body" required><%- blog.body %></textarea>
+            </div>
             <div class="btns">
                 <button class="btn btn-primary" type="submit">Update</button>
             </div>
