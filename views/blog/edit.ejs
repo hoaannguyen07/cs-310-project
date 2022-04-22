@@ -13,27 +13,31 @@
         <link
             rel="stylesheet"
             type="text/css"
-            href="/stylesheets/blog/create-blog.css"
+            href="/stylesheets/blog/edit_blog.css"
         />
     </head>
     <body>
         <%- include('../partials/body_start') %>
 
         <div>
-            <h1>Create Blog Post Page</h1>
+            <h1>Edit Blog Post Page</h1>
         </div>
 
         <form
             class="blog-creation-form"
             name="post"
-            action="/blogs/create"
+            action="/blogs/blog/<%= blog.id %>/update"
             method="POST"
         >
-            <input placeholder="Title" name="title" required />
-            <textarea placeholder="Type here:" name="body" required></textarea>
-
+            <input
+                placeholder="Title"
+                name="title"
+                value="<%- blog.title %>"
+                required
+            />
+            <textarea name="body" required><%- blog.body %></textarea>
             <div class="btns">
-                <button class="btn btn-primary" type="submit">Post</button>
+                <button class="btn btn-primary" type="submit">Update</button>
             </div>
         </form>
 

@@ -1,3 +1,19 @@
+.blog_actions {
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.blog_actions > * {
+    margin: 0 5px;
+}
+
+.blog_actions button {
+    width: 100%;
+}
+
 .card {
     width: 80%;
     padding: 15px;
