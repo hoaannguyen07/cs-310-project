@@ -4,6 +4,11 @@
         <%- include("partials/standard_header.ejs") %>
 
         <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/blog/show_all.css"
+        />
     </head>
     <body>
         <%- include('./partials/body_start') %>
@@ -11,6 +16,21 @@
         <div>
             <h1>Welcome to the Home Page, where all blogs will be put</h1>
         </div>
+
+        <p></p>
+
+        <% if (blogs) { %>
+             <% blogs.forEach(blog => { %>
+            <div class="card">
+                <div class="card-body">
+                    <h5><td><%= blog.title %></td></h5>
+                    <td><%= blog.body %></td>
+                    </div>
+                    <a class="btn btn-primary" href="/blogs/blog/<%=blog.id%>"> Go to Post </a>
+                </div>
+            </div>
+            <% }) %> 
+        <% } %>
 
         <%- include("partials/standard_footer.ejs") %>
     </body>
