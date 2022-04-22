@@ -72,10 +72,9 @@ module.exports = {
             [blog_id],
             (err, result) => {
                 if (err || result.rowCount !== 1) {
-                    req.flash("error", "Unable to update post.");
+                    req.flash("error", "Unable to edit post.");
                     return res.redirect(`/blogs/blog/${blog_id}`);
                 }
-                req.flash("success", "Post updated successfully.");
                 res.render("blog/edit", { blog: result.rows[0] });
             }
         );
