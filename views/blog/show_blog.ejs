@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%- include("partials/standard_header.ejs") %>
+        <%- include("../partials/standard_header.ejs") %>
 
         <!-- Custom CSS -->
         <link
             rel="stylesheet"
             type="text/css"
-            href="/stylesheets/blog/show_all.css"
+            href="/stylesheets/blog/show_blog.css"
         />
     </head>
     <body>
-        <%- include('./partials/body_start') %>
+        <%- include('../partials/body_start') %>
 
-        <div>
-            <h1>Welcome to the Home Page, where all blogs will be put</h1>
+        <div class="blog_actions">
+            <a class="btn btn-primary" href="#">Update</a>
+            <form action="#" method="GET">
+                <button class="btn btn-danger">Delete</button>
+            </form>
         </div>
 
-        <p></p>
-
-        <% if (blogs) { %> <% blogs.forEach(blog => { %>
+        <% if (blog) { %>
         <div class="card">
             <div class="card-body">
                 <div class="text-body">
@@ -29,12 +30,9 @@
                 <div class="blog_extras">
                     <p><%= blog.created_by %></p>
                     <p>Upvotes: <%= blog.num_upvotes %></p>
-                    <a class="btn btn-primary" href="/blogs/blog/<%=blog.id%>">
-                        Go to Post
-                    </a>
                 </div>
             </div>
         </div>
-        <% }) %> <% } %> <%- include("partials/standard_footer.ejs") %>
+        <% } %> <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>

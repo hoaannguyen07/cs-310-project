@@ -32,12 +32,12 @@ module.exports = {
 
     renderHome: (req, res) => {
         db.query(
-            "SELECT id, user_id, title, body, created_at FROM posts ORDER BY created_at DESC",
+            "SELECT posts.id, users.username as created_by, posts.title, body, num_upvotes FROM posts INNER JOIN users ON users.id = posts.user_id ORDER BY created_at DESC;",
             [],
             (err, result) => {
                 if (err) {
                     console.log("THERES AN ERROR");
-                    req.flash("error", "Unable to query tags");
+                    req.flash("error", "Unable to query blogs");
                     res.render("home", { blogs: result.rows });
                 }
                 res.render("home", { blogs: result.rows });
@@ -48,7 +48,19 @@ module.exports = {
     showPost: (req, res) => {
         let { blog_id } = req.params;
         console.log(blog_id);
-        res.redirect("/home");
+
+        db.query(
+            "SELECT posts.id, users.username as created_by, posts.title, body, num_upvotes FROM posts INNER JOIN users ON users.id = posts.user_id WHERE posts.id=$1 ORDER BY created_at DESC;",
+            [blog_id],
+            (err, result) => {
+                if (err) {
+                    console.log("THERES AN ERROR");
+                    req.flash("error", "Unable to query blog");
+                    res.redirect("/home");
+                }
+                res.render("blog/show_blog", { blog: result.rows[0] });
+            }
+        );
     },
 
     /*
