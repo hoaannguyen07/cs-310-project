@@ -60,7 +60,11 @@ module.exports = (app, passport, db) => {
     app.post("/blogs/create", requiresBloggerOrAdmin, blogs.createPost);
     app.get("/blogs/blog/:blog_id", requiresLogin, blogs.showPost);
     app.get("/blogs/blog/:blog_id/edit", requiresBlogCreator, blogs.editPost);
-    //app.post("/blogs/update", requiresBloggerOrAdmin, blogs.updatePost);
+    app.post(
+        "/blogs/blog/:blog_id/update",
+        requiresBlogCreator,
+        blogs.updatePost
+    );
 
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);

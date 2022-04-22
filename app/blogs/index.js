@@ -9,12 +9,6 @@ module.exports = {
         console.log(req.body);
         const { title, body } = req.body;
 
-        /*
-        console.log("title:", title);
-        console.log("body:", body);
-        console.log("user id:", req.user.id);
-        */
-
         db.query(
             "INSERT INTO unapproved_posts (user_id, title, body) VALUES ($1, $2, $3)",
             [req.user.id, title, body],
@@ -47,7 +41,6 @@ module.exports = {
 
     showPost: (req, res) => {
         let { blog_id } = req.params;
-        console.log(blog_id);
 
         db.query(
             "SELECT posts.id, users.username as created_by, posts.title, body, num_upvotes FROM posts INNER JOIN users ON users.id = posts.user_id WHERE posts.id=$1 ORDER BY created_at DESC;",
@@ -64,7 +57,6 @@ module.exports = {
     },
 
     editPost: (req, res) => {
-        console.log(req.body);
         const { blog_id } = req.params;
 
         db.query(
@@ -76,6 +68,25 @@ module.exports = {
                     return res.redirect(`/blogs/blog/${blog_id}`);
                 }
                 res.render("blog/edit", { blog: result.rows[0] });
+            }
+        );
+    },
+
+    updatePost: (req, res) => {
+        console.log(req.body);
+        const { blog_id } = req.params;
+        const { title, body } = req.body;
+
+        db.query(
+            "UPDATE posts SET title=$1, body=$2 WHERE id=$3;",
+            [title, body, blog_id],
+            (err, result) => {
+                if (err || result.rowCount !== 1) {
+                    req.flash("error", "Unable to edit post.");
+                } else {
+                    req.flash("success", "Successfully edited post.");
+                }
+                res.redirect(`/blogs/blog/${blog_id}`);
             }
         );
     },
