@@ -4,6 +4,7 @@ const {
     requiresBloggerOrAdmin,
     requiresAdmin,
     requiresBlogCreator,
+    requiresBlogCreatorOrAdmin,
 } = require("./middlewares/authorization");
 const blogs = require("../app/blogs");
 const admins = require("../app/admins");
@@ -64,6 +65,11 @@ module.exports = (app, passport, db) => {
         "/blogs/blog/:blog_id/update",
         requiresBlogCreator,
         blogs.updatePost
+    );
+    app.post(
+        "/blogs/blog/:blog_id/delete",
+        requiresBlogCreatorOrAdmin,
+        blogs.deletePost
     );
 
     // admin routes

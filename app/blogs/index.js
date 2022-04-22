@@ -6,7 +6,6 @@ module.exports = {
     },
 
     createPost: (req, res) => {
-        console.log(req.body);
         const { title, body } = req.body;
 
         db.query(
@@ -73,7 +72,6 @@ module.exports = {
     },
 
     updatePost: (req, res) => {
-        console.log(req.body);
         const { blog_id } = req.params;
         const { title, body } = req.body;
 
@@ -89,5 +87,18 @@ module.exports = {
                 res.redirect(`/blogs/blog/${blog_id}`);
             }
         );
+    },
+
+    deletePost: (req, res) => {
+        const { blog_id } = req.params;
+
+        db.query("DELETE FROM posts WHERE id=$1;", [blog_id], (err, result) => {
+            if (err) {
+                req.flash("error", "Unable to delete post.");
+            } else {
+                req.flash("success", "Successfully deleted post.");
+            }
+            res.redirect(`/home`);
+        });
     },
 };

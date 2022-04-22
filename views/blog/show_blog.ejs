@@ -17,7 +17,7 @@
             <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/edit"
                 >Update</a
             >
-            <form action="#" method="GET">
+            <form action="/blogs/blog/<%=blog.id%>/delete" method="POST">
                 <button class="btn btn-danger">Delete</button>
             </form>
         </div>
