@@ -71,6 +71,7 @@ module.exports = (app, passport, db) => {
         requiresBlogCreatorOrAdmin,
         blogs.deletePost
     );
+    app.post("/blogs/blog/:blog_id/upvote", requiresLogin, blogs.upvotePost);
 
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);

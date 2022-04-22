@@ -31,7 +31,14 @@
                 </div>
                 <div class="blog_extras">
                     <p><%= blog.created_by %></p>
-                    <p>Upvotes: <%= blog.num_upvotes %></p>
+                    <form
+                        action="/blogs/blog/<%=blog.id%>/upvote"
+                        method="POST"
+                    >
+                        <button class="btn btn-primary">
+                            Upvotes: <%= blog.num_upvotes %>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

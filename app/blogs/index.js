@@ -101,4 +101,21 @@ module.exports = {
             res.redirect(`/home`);
         });
     },
+
+    upvotePost: (req, res) => {
+        const { blog_id } = req.params;
+
+        db.query(
+            "UPDATE posts SET num_upvotes=(SELECT num_upvotes FROM posts WHERE id=$1 LIMIT 1)+1 WHERE id=$1;",
+            [blog_id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to upvote post.");
+                } else {
+                    req.flash("success", "Successfully upvoted post.");
+                }
+                res.redirect(`/blogs/blog/${blog_id}`);
+            }
+        );
+    },
 };
