@@ -44,13 +44,33 @@ module.exports = {
         db.query(
             "SELECT posts.id, users.username as created_by, posts.title, body, num_upvotes FROM posts INNER JOIN users ON users.id = posts.user_id WHERE posts.id=$1 ORDER BY created_at DESC;",
             [blog_id],
-            (err, result) => {
-                if (err) {
+            (blog_err, blog_result) => {
+                if (blog_err) {
                     console.log("THERES AN ERROR");
                     req.flash("error", "Unable to query blog");
-                    res.redirect("/home");
+                    return res.redirect("/home");
                 }
-                res.render("blog/show_blog", { blog: result.rows[0] });
+
+                db.query(
+                    "SELECT tags.id, tags.description FROM post_tags INNER JOIN tags ON post_tags.tag_id=tags.id WHERE post_tags.post_id=$1;",
+                    [blog_id],
+                    (tags_err, tags_result) => {
+                        if (tags_err) {
+                            req.flash(
+                                "error",
+                                "Unable to query tags for this blog post"
+                            );
+                            return res.render("blog/show_blog", {
+                                blog: blog_result.rows[0],
+                                tags: undefined,
+                            });
+                        }
+                        return res.render("blog/show_blog", {
+                            blog: blog_result.rows[0],
+                            tags: tags_result.rows,
+                        });
+                    }
+                );
             }
         );
     },
@@ -60,7 +80,7 @@ module.exports = {
 
         // get all tags
         db.query(
-            "SELECT id, description FROM tags ORDER BY description ASC;",
+            "SELECT description FROM tags ORDER BY description ASC;",
             [],
             (tags_err, tags_result) => {
                 if (tags_err) {
