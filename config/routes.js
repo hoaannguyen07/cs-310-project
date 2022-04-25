@@ -74,6 +74,7 @@ module.exports = (app, passport, db) => {
 
     // appr_comments
     app.get("/appr_comments", requiresAdmin, appr_comments.renderApprCommPage);
+    app.post("/appr_comments/unapproved_comment/:unapproved_comment_id/delete", requiresAdmin, appr_comments.deleteComm);
 
     app.get("*", (req, res) => {
         res.sendStatus(404);

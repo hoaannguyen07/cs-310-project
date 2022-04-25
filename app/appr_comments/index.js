@@ -93,24 +93,24 @@ module.exports = {
         );
     },
 
-    deleteTag: (req, res) => {
-        let { tag_id } = req.params;
+    deleteComm: (req, res) => {
+        let { unapproved_comment_id } = req.params;
         try {
-            tag_id = parseInt(tag_id);
+            unapproved_comment_id = parseInt(unapproved_comment_id);
         } catch (error) {
             console.log(error);
             req.flash("error", "Unable to update tag");
-            res.redirect(`tags/tag/${tag_id}`);
+            res.redirect(`appr_comments/unapproved_comment/${unapproved_comment_id}`);
         }
 
-        db.query("DELETE FROM tags WHERE id=$1;", [tag_id], (err, result) => {
+        db.query("DELETE FROM unapproved_comments WHERE id=$1;", [unapproved_comment_id], (err, result) => {
             if (err) {
-                req.flash("error", `Unable to delete tag ${tag_id}`);
+                req.flash("error", `Unable to delete tag ${unapproved_comment_id}`);
             } else {
-                req.flash("success", `Tag ${tag_id} deleted successfully.`);
+                req.flash("success", `comment ${unapproved_comment_id} deleted successfully.`);
             }
 
-            return res.redirect("/tags");
+            return res.redirect("/appr_comments");
         });
     },
 };

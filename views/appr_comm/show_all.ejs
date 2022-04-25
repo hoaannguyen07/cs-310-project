@@ -39,10 +39,13 @@
                         </td>
                         <td>
                             <div class="action-btns">
-                                <a class="btn btn-primary" href="#">Update</a>
+                                <a class="btn btn-primary" href="#">Approve</a>
 
-                                <form action="#" method="GET">
-                                    <button class="btn btn-danger">Delete</button>
+                                <form
+                                    action="/appr_comments/unapproved_comment/<%= unapproved_comment.id %>/delete"
+                                    method="POST"
+                                >
+                                <button class="btn btn-danger">Delete</button>
                                 </form>
                             </div>
                         </td>
