@@ -19,19 +19,22 @@
 
         <p></p>
 
-        <% if (blogs) { %>
-             <% blogs.forEach(blog => { %>
-            <div class="card">
-                <div class="card-body">
-                    <h5><td><%= blog.title %></td></h5>
-                    <td><%= blog.body %></td>
-                    </div>
-                    <a class="btn btn-primary" href="/blogs/blog/<%=blog.id%>"> Go to Post </a>
+        <% if (blogs) { %> <% blogs.forEach(blog => { %>
+        <div class="card">
+            <div class="card-body">
+                <div class="text-body">
+                    <h5><%= blog.title %></h5>
+                    <p><%= blog.body %></p>
+                </div>
+                <div class="blog_extras">
+                    <p><%= blog.created_by %></p>
+                    <p>Upvotes: <%= blog.num_upvotes %></p>
+                    <a class="btn btn-primary" href="/blogs/blog/<%=blog.id%>">
+                        Go to Post
+                    </a>
                 </div>
             </div>
-            <% }) %> 
-        <% } %>
-
-        <%- include("partials/standard_footer.ejs") %>
+        </div>
+        <% }) %> <% } %> <%- include("partials/standard_footer.ejs") %>
     </body>
 </html>

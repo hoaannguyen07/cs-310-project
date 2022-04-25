@@ -2,6 +2,7 @@ const db = require("../../db");
 
 module.exports = {
     renderViewTagsPage: (req, res) => {
+        // get all tags -> Victoria
         db.query(
             "SELECT id, description FROM tags ORDER BY description ASC",
             [],
@@ -24,6 +25,7 @@ module.exports = {
         const { description } = req.body;
         console.log("description:", description);
 
+        // create new tags -> Victoria
         db.query(
             "INSERT INTO tags (description) VALUES ($1)",
             [description],
@@ -51,6 +53,7 @@ module.exports = {
         }
         // console.log(typeof tag_id);
 
+        // get specific tag -> Victoria
         db.query(
             "SELECT id, description FROM tags WHERE id=$1",
             [tag_id],
@@ -78,6 +81,7 @@ module.exports = {
 
         const { description } = req.body;
 
+        // update tag -> Victoria
         db.query(
             "UPDATE tags SET description=$1 WHERE id=$2;",
             [description, tag_id],
@@ -103,6 +107,7 @@ module.exports = {
             res.redirect(`tags/tag/${tag_id}`);
         }
 
+        // delete tag -> Victoria
         db.query("DELETE FROM tags WHERE id=$1;", [tag_id], (err, result) => {
             if (err) {
                 req.flash("error", `Unable to delete tag ${tag_id}`);
