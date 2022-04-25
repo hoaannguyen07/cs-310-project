@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/admin-landing.css"
+        />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/blog/edit_blog.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>Edit Blog Post Page</h1>
+        </div>
+
+        <form
+            class="blog-creation-form"
+            name="post"
+            action="/blogs/blog/<%= blog.id %>/update"
+            method="POST"
+        >
+            <% if (tags) { %>
+            <div class="tag_list">
+                <% tags.forEach(tag => { %>
+                <div class="tag_check_box">
+                    <% if (tag.check) { %>
+                    <input
+                        type="checkbox"
+                        name="tag_<%= tag.id %>"
+                        value="<%= tag.id %>"
+                        checked
+                    />
+                    <% } else { %>
+                    <input
+                        type="checkbox"
+                        name="tag_<%= tag.id %>"
+                        value="<%= tag.id %>"
+                    />
+                    <% } %>
+                    <label for="tag_1"><%= tag.description %></label>
+                </div>
+                <% }) %>
+            </div>
+            <% } %>
+            <div class="input_grp">
+                <label for="title"><h4>Title</h4></label>
+                <input
+                    placeholder="Title"
+                    name="title"
+                    value="<%- blog.title %>"
+                    required
+                />
+            </div>
+            <div class="input_grp">
+                <label for="body"><h4>Body</h4></label>
+                <textarea name="body" required><%- blog.body %></textarea>
+            </div>
+            <div class="btns">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+        </form>
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>
