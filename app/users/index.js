@@ -12,6 +12,7 @@ module.exports = {
         const saltRounds = 10;
         const hash = bcrypt.hashSync(password, saltRounds);
 
+        // insert user into db to register the user -> Hoa
         db.query(
             "INSERT INTO users(email, username, password, type) VALUES ($1, $2, $3, $4);",
             [email, username, hash, user],
@@ -56,6 +57,7 @@ module.exports = {
     updateAboutMe: (req, res) => {
         const { email, username, user_type } = req.body;
 
+        // update user information -> Hoa
         db.query(
             "UPDATE users SET email=$1 WHERE username=$2;",
             [email, username],
@@ -73,6 +75,7 @@ module.exports = {
     },
 
     renderUserListPage: (req, res) => {
+        // get all user info for admin users page -> Hoa
         db.query(
             "SELECT id, email, username, type FROM users ORDER BY type ASC, username ASC",
             [],
@@ -99,6 +102,7 @@ module.exports = {
             return res.redirect("/users");
         }
 
+        // get info on specific user -> Hoa
         db.query(
             "SELECT id, email, username, type FROM users WHERE id=$1",
             [user_id],
@@ -117,6 +121,7 @@ module.exports = {
     updateUserInfo: (req, res) => {
         const { email, username, user_type } = req.body;
 
+        // update user type for specific user -> Hoa
         db.query(
             "UPDATE users SET type=$1 WHERE username=$2;",
             [user_type, username],
@@ -142,6 +147,7 @@ module.exports = {
     deleteUserInfo: (req, res) => {
         let { username } = req.params;
 
+        // Delete user from db -> Hoa
         db.query(
             "DELETE FROM users WHERE username=$1",
             [username],
