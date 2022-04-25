@@ -8,6 +8,7 @@ module.exports = {
     createPost: (req, res) => {
         const { title, body } = req.body;
 
+        // create new blog -> Victoria
         db.query(
             "INSERT INTO unapproved_posts (user_id, title, body) VALUES ($1, $2, $3)",
             [req.user.id, title, body],
@@ -24,6 +25,7 @@ module.exports = {
     },
 
     renderHome: (req, res) => {
+        // get all blogs -> Victoria
         db.query(
             "SELECT posts.id, users.username as created_by, posts.title, body, num_upvotes FROM posts INNER JOIN users ON users.id = posts.user_id ORDER BY created_at DESC;",
             [],
@@ -41,6 +43,7 @@ module.exports = {
     showPost: (req, res) => {
         let { blog_id } = req.params;
 
+        // show specific post -> Victoria
         db.query(
             "SELECT posts.id, users.username as created_by, posts.title, body, num_upvotes FROM posts INNER JOIN users ON users.id = posts.user_id WHERE posts.id=$1 ORDER BY created_at DESC;",
             [blog_id],
@@ -50,7 +53,7 @@ module.exports = {
                     req.flash("error", "Unable to query blog");
                     return res.redirect("/home");
                 }
-
+                // get all tags associated with the post -> Hoa
                 db.query(
                     "SELECT tags.id, tags.description FROM post_tags INNER JOIN tags ON post_tags.tag_id=tags.id WHERE post_tags.post_id=$1;",
                     [blog_id],
@@ -78,7 +81,7 @@ module.exports = {
     editPost: (req, res) => {
         const { blog_id } = req.params;
 
-        // get all tags
+        // get all tags to show all possible tags as options for the post to have -> Hoa
         db.query(
             "SELECT id, description FROM tags ORDER BY description ASC;",
             [],
@@ -91,7 +94,7 @@ module.exports = {
                 all_tags = tags_result.rows;
                 // console.log(all_tags);
 
-                // get info on specific post
+                // get info on specific post -? Victoria
                 db.query(
                     "SELECT id, title, body FROM posts WHERE id=$1;",
                     [blog_id],
@@ -101,6 +104,7 @@ module.exports = {
                             return res.redirect(`/blogs/blog/${blog_id}`);
                         }
 
+                        // get the tags that the user already has for the post to make them checked on the front end by default -> Hoa
                         db.query(
                             "SELECT tags.id, tags.description FROM post_tags INNER JOIN tags ON post_tags.tag_id=tags.id WHERE post_tags.post_id=$1;",
                             [blog_id],
@@ -113,7 +117,7 @@ module.exports = {
                                 }
                                 // console.log(blog_tags_result.rows);
 
-                                // add identification on tags that post has
+                                // add identification of tags that post has -> Hoa
                                 all_tags.forEach((tag) => {
                                     tag.check = false;
                                     blog_tags_result.rows.forEach(
@@ -151,7 +155,7 @@ module.exports = {
             }
         });
 
-        // update blog info
+        // update blog info -> Victoria
         db.query(
             "UPDATE posts SET title=$1, body=$2 WHERE id=$3;",
             [title, body, blog_id],
@@ -161,7 +165,7 @@ module.exports = {
                     return res.redirect(`/blogs/blog/${blog_id}`);
                 }
 
-                // delete all tags associated with post & then recreate the tags with the new set of tags
+                // delete all tags associated with post & then recreate the tags with the new set of tags -> Hoa
                 db.query(
                     "DELETE FROM post_tags WHERE post_id=$1",
                     [blog_id],
@@ -171,12 +175,13 @@ module.exports = {
                             return res.redirect(`/blogs/blog/${blog_id}`);
                         }
 
-                        // prep query to add in all tags selected to be updated
+                        // prep query to add in all tags selected to be updated -> Hoa
                         let query = "";
                         tag_id_selected.forEach((tag) => {
                             query += `INSERT INTO post_tags(post_id, tag_id) VALUES ('${blog_id}', '${tag}');`;
                         });
 
+                        // add all selected tags to the blog (post_tags table) -> Hoa
                         db.query(
                             query,
                             [],
@@ -209,6 +214,7 @@ module.exports = {
     deletePost: (req, res) => {
         const { blog_id } = req.params;
 
+        // delete blog -> Victoria
         db.query("DELETE FROM posts WHERE id=$1;", [blog_id], (err, result) => {
             if (err) {
                 req.flash("error", "Unable to delete post.");
@@ -222,6 +228,7 @@ module.exports = {
     upvotePost: (req, res) => {
         const { blog_id } = req.params;
 
+        // update blog num_upvotes -> Victoria
         db.query(
             "UPDATE posts SET num_upvotes=(SELECT num_upvotes FROM posts WHERE id=$1 LIMIT 1)+1 WHERE id=$1;",
             [blog_id],
