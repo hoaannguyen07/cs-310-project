@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/tag/info.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>Update Comment</h1>
+        </div>
+
+        <form
+            name="update-comm"
+            action="/appr_comments/unapproved_comment/<%= unapproved_comment.id %>/update"
+            method="POST"
+        >
+            <div class="grid-row">
+                <label for="description">Comment Body: </label>
+                <input
+                    value="<%- unapproved_comment.body %>"
+                    name="description"
+                    required
+                />
+            </div>
+            <button class="btn btn-primary" type="submit">Update Comment</button>
+        </form>
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>

@@ -41,6 +41,12 @@
                             <div class="action-btns">
                                 <a class="btn btn-primary" href="#">Approve</a>
 
+                                <a
+                                    class="btn btn-primary"
+                                    href="/appr_comments/unapproved_comment/<%- unapproved_comment.id %>"
+                                    >Update</a
+                                >
+
                                 <form
                                     action="/appr_comments/unapproved_comment/<%= unapproved_comment.id %>/delete"
                                     method="POST"
