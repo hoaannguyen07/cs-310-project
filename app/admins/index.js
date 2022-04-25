@@ -42,23 +42,24 @@ module.exports = {
                 }
 
                 req.flash("success", `Successfully approved post ${id}!`);
-            }
+            },
+            db.query(
+                "DELETE FROM unapproved_posts WHERE id=$1",
+                [id],
+                (err, result) => {
+                    if (err) {
+                        req.flash("error", `Unable to delete post ${id}`);
+                    } else {
+                        req.flash(
+                            "success",
+                            `Successfully deleted unapproved post from table`
+                        );
+                    }
+                    return res.redirect("/admin_post_approval");
+                }
+            )
         );
 
-        db.query(
-            "DELETE FROM unapproved_posts WHERE id=$1",
-            [id],
-            (err, result) => {
-                if (err) {
-                    req.flash("error", `Unable to delete post ${id}`);
-                } else {
-                    req.flash(
-                        "success",
-                        `Successfully deleted unapproved post from table`
-                    );
-                }
-                return res.redirect("/admin_post_approval");
-            }
-        );
+        
     },
 };
