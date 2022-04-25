@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 
 module.exports = (passport, db) => {
+    // handle user authentication into the app -> Hoa
     passport.use(
         new LocalStrategy((username, password, cb) => {
             db.query(
@@ -43,6 +44,7 @@ module.exports = (passport, db) => {
         done(null, user.id);
     });
 
+    // get user info from DB to save it in session to keep user infor through the app -> Hoa
     passport.deserializeUser((id, cb) => {
         db.query(
             "SELECT id, email, username, type FROM users WHERE id = $1",
