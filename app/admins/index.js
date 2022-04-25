@@ -31,7 +31,7 @@ module.exports = {
             return res.redirect("/admin_post_approval");
         }
         db.query(
-            "INSERT INTO posts SELECT * FROM unapproved_posts WHERE id=$1;",
+            "INSERT INTO posts (user_id, title, body) SELECT user_id, title, body FROM unapproved_posts WHERE id=$1;",
             [id],
             (err, result) => {
                 if (err || result.rowCount !== 1) {
