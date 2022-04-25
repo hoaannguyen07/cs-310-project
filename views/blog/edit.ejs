@@ -29,13 +29,42 @@
             action="/blogs/blog/<%= blog.id %>/update"
             method="POST"
         >
-            <input
-                placeholder="Title"
-                name="title"
-                value="<%- blog.title %>"
-                required
-            />
-            <textarea name="body" required><%- blog.body %></textarea>
+            <% if (tags) { %>
+            <div class="tag_list">
+                <% tags.forEach(tag => { %>
+                <div class="tag_check_box">
+                    <% if (tag.check) { %>
+                    <input
+                        type="checkbox"
+                        name="tag_<%= tag.id %>"
+                        value="<%= tag.id %>"
+                        checked
+                    />
+                    <% } else { %>
+                    <input
+                        type="checkbox"
+                        name="tag_<%= tag.id %>"
+                        value="<%= tag.id %>"
+                    />
+                    <% } %>
+                    <label for="tag_1"><%= tag.description %></label>
+                </div>
+                <% }) %>
+            </div>
+            <% } %>
+            <div class="input_grp">
+                <label for="title"><h4>Title</h4></label>
+                <input
+                    placeholder="Title"
+                    name="title"
+                    value="<%- blog.title %>"
+                    required
+                />
+            </div>
+            <div class="input_grp">
+                <label for="body"><h4>Body</h4></label>
+                <textarea name="body" required><%- blog.body %></textarea>
+            </div>
             <div class="btns">
                 <button class="btn btn-primary" type="submit">Update</button>
             </div>

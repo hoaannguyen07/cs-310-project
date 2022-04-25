@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link rel="stylesheet" type="text/css" href="/stylesheets/admin_post_approval.css" />
+</head>
+
+<body>
+    <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>List of Unapproved Posts</h1>
+        </div>
+
+        <% if (unapproved_posts) { %>
+            <table class="unapproved_posts">
+                <tr>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Action</th>
+                </tr>
+                <% unapproved_posts.forEach(unapproved_post=> { %>
+                    <tr class="unapproved_posts">
+                        <td>
+                            <%= unapproved_post.title %>
+                        </td>
+                        <td>
+                            <%= unapproved_post.body %>
+                        </td>
+                        <td>
+                            <div class="action-btns">
+                                <form
+                                    action="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/approve"
+                                    method="POST"
+                                >
+                                    <button class="btn btn-danger">Approve</button>
+                                </form>
+                                <form action="#" method="GET">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </table>
+            <% } %>
+                <%- include("../partials/standard_footer.ejs") %>
+</body>
+
+</html>
