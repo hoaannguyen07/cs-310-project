@@ -12,8 +12,10 @@
     </head>
     <body>
         <%- include('../partials/body_start') %> <% if (user) { %>
+        <!-- show user info in form form so that admin can update necessary field -> Hoa  -->
         <form action="/users/user/<%= user.id %>/update" method="POST">
             <h1>Edit Profile</h1>
+            <!-- Can't edit email & username b/c that's a user's job but can edit user type b/c that's an admin's job -> Hoa  -->
             <div class="grid-row">
                 <label for="email">Email: </label>
                 <input

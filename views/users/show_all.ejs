@@ -17,6 +17,7 @@
             <h1>List of All Users</h1>
         </div>
 
+        <!-- Go through all the users passed in from the backend and put everyone's information in a table -> Hoa -->
         <% if (users) { %>
         <table class="users">
             <tr>
@@ -31,9 +32,11 @@
                 <td><%= user.username %></td>
                 <td><%= user.type %></td>
                 <td>
+                    <!-- Don't let admins edit other admin's roles and don't let user edit their own role -> Hoa -->
                     <% if (user.username != currentUser.username || user.type !=
                     'admin') { %>
                     <div class="action-btns">
+                        <!-- Edit & Delete button to edit & delete users -> Hoa  -->
                         <a
                             class="btn btn-primary"
                             href="/users/user/<%- user.id %>"

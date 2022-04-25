@@ -41,7 +41,7 @@ module.exports = (app, passport, db) => {
     app.get("/about-me", requiresLogin, users.renderAboutMe);
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
     app.post("/about-me/update", requiresLogin, users.updateAboutMe);
-    // user info
+    // user info on the admin side
     app.get("/users", requiresAdmin, users.renderUserListPage);
     app.get("/users/user/:user_id", requiresAdmin, users.renderUserInfoPage);
     app.post(
@@ -55,7 +55,8 @@ module.exports = (app, passport, db) => {
         users.deleteUserInfo
     );
 
-    // blogs
+    // Victoria, Aaron, and Hoa
+    // blogs (with post tags and comments)
     app.get("/home", requiresLogin, blogs.renderHome);
     app.get("/blogs/new", requiresBloggerOrAdmin, blogs.renderCreatePage);
     app.post("/blogs/create", requiresBloggerOrAdmin, blogs.createPost);
@@ -77,8 +78,16 @@ module.exports = (app, passport, db) => {
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
 
     // post approval
-    app.get("/admin_post_approval", requiresAdmin, admins.renderUnapprovedPostsPage);
-    app.post('/admin_post_approval/unapproved_post/:id/approve', requiresAdmin, admins.approveUnapprovedPost);
+    app.get(
+        "/admin_post_approval",
+        requiresAdmin,
+        admins.renderUnapprovedPostsPage
+    );
+    app.post(
+        "/admin_post_approval/unapproved_post/:id/approve",
+        requiresAdmin,
+        admins.approveUnapprovedPost
+    );
 
     app.get("/health", monitoring.health(db));
 
