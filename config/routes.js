@@ -76,6 +76,10 @@ module.exports = (app, passport, db) => {
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
 
+    // post approval
+    app.get("/admin_post_approval", requiresAdmin, admins.renderUnapprovedPostsPage);
+    app.post('/admin_post_approval/unapproved_post/:id/approve', requiresAdmin, admins.approveUnapprovedPost);
+
     app.get("/health", monitoring.health(db));
 
     // tag

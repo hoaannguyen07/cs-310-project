@@ -80,7 +80,7 @@ module.exports = {
 
         // get all tags
         db.query(
-            "SELECT description FROM tags ORDER BY description ASC;",
+            "SELECT id, description FROM tags ORDER BY description ASC;",
             [],
             (tags_err, tags_result) => {
                 if (tags_err) {
