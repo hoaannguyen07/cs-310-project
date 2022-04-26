@@ -1,4 +1,6 @@
-# cs-310-project
+# cs-310-project (Blogging Site)
+
+##### Aaron Weast, Zachary Summers, Victoria Pham, Hoa Nguyen
 
 ---
 
