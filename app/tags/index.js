@@ -8,10 +8,12 @@ module.exports = {
             [],
             (err, result) => {
                 if (err) {
+                    // if unable to query tag description, render page that has all the tags -> Victoria
                     req.flash("error", "Unable to query tags");
-                    res.render("tag/show_all");
+                    res.render("tag/show_all"); // redundant ??
                 }
 
+                // render page that has all tags -> Victoria
                 res.render("tag/show_all", { tags: result.rows });
             }
         );
@@ -31,10 +33,12 @@ module.exports = {
             [description],
             (err, result) => {
                 if (err || result.rowCount !== 1) {
+                    // if new tag is unable to be created, redirect to tags page -> Victoria
                     req.flash("error", "Unable to create a new tags.");
                     return res.redirect("/tags");
                 }
 
+                // if new tag is created, redirect to admin page -> Victoria
                 req.flash("success", "Tag created successfully.");
                 return res.redirect("/admin");
             }
@@ -59,10 +63,13 @@ module.exports = {
             [tag_id],
             (err, result) => {
                 if (err) {
+                    // if tag information can't be queried, then go back to tags -> Victoria
                     req.flash("error", "Unable to query tag");
                     res.redirect("/tags");
                 }
                 // console.log(result.rows[0]);
+
+                // render the page that has the tag info from DB -> Victoria
                 res.render("tag/tag_info", { tag: result.rows[0] });
             }
         );
@@ -92,6 +99,7 @@ module.exports = {
                     req.flash("success", `Tag ${tag_id} updated successfully.`);
                 }
 
+                // redicrt to tags page after every attempt to update tag -> Victoria
                 return res.redirect("/tags");
             }
         );
@@ -115,6 +123,7 @@ module.exports = {
                 req.flash("success", `Tag ${tag_id} deleted successfully.`);
             }
 
+            // redicrt to tags page after every attempt to delete tag -> Victoria
             return res.redirect("/tags");
         });
     },
