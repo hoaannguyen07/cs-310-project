@@ -74,6 +74,7 @@ module.exports = (app, passport, db) => {
     );
     app.post("/blogs/blog/:blog_id/upvote", requiresLogin, blogs.upvotePost);
 
+    // Hoa
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
 

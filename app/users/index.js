@@ -94,9 +94,10 @@ module.exports = {
             (err, result) => {
                 if (err) {
                     req.flash("error", "Unable to query users");
+                    // render page to show all users but pass in nothing for users b/c there are no info info that could be found in the db -> Hoa
                     return res.render("users/show_all", { users: undefined });
                 }
-
+                // render page to show all users and pass in all user info -> Hoa
                 return res.render("users/show_all", { users: result.rows });
             }
         );

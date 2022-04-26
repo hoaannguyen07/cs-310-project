@@ -18,7 +18,7 @@
         </div>
 
         <p></p>
-
+        <!-- Show blogs if there are blogs from show (passed in from the backend) -> Victoria  -->
         <% if (blogs) { %> <% blogs.forEach(blog => { %>
         <div class="card">
             <div class="card-body">
@@ -29,6 +29,7 @@
                 <div class="blog_extras">
                     <p><%= blog.created_by %></p>
                     <p>Upvotes: <%= blog.num_upvotes %></p>
+                    <!-- button to go show the specific post (to edit, view comments, view tags associated to post, etc.) -> Victoria  -->
                     <a class="btn btn-primary" href="/blogs/blog/<%=blog.id%>">
                         Go to Post
                     </a>
