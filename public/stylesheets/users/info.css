@@ -1,0 +1,27 @@
+form {
+    min-width: 20vw;
+    display: grid;
+    grid-template-columns: minmax(50px, 1fr);
+    gap: 35px;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+.grid-row {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 15px;
+}
+
+.disabled {
+    pointer-events: none;
+    color: grey;
+}
+
+button {
+    width: 50%;
+    justify-self: center;
+}

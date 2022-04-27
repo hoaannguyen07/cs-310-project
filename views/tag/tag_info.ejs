@@ -7,7 +7,7 @@
         <link
             rel="stylesheet"
             type="text/css"
-            href="/stylesheets/tag/show-all.css"
+            href="/stylesheets/tag/info.css"
         />
     </head>
     <body>
@@ -17,13 +17,21 @@
             <h1>Update Tag</h1>
         </div>
 
-        <form name="update-tag" action="#" method="GET">
-            <label for="description">Tag Description: </label>
-            <input value="<%- tag.description %>" name="description" required />
-            <button class="btn btn-tag" type="submit">Update Tag</button>
+        <form
+            name="update-tag"
+            action="/tags/tag/<%= tag.id %>/update"
+            method="POST"
+        >
+            <div class="grid-row">
+                <label for="description">Tag Description: </label>
+                <input
+                    value="<%- tag.description %>"
+                    name="description"
+                    required
+                />
+            </div>
+            <button class="btn btn-primary" type="submit">Update Tag</button>
         </form>
-
-        <a class="btn btn-danger" href="#">Delete Tag</a>
 
         <%- include("../partials/standard_footer.ejs") %>
     </body>

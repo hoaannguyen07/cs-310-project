@@ -7,39 +7,46 @@
         <link
             rel="stylesheet"
             type="text/css"
-            href="/stylesheets/tag/show-all.css"
+            href="/stylesheets/users/show_all.css"
         />
     </head>
     <body>
         <%- include('../partials/body_start') %>
 
-        <h1>Show All Tags</h1>
-        <a class="btn btn-primary" href="/tags/new">Add Tag</a>
+        <div>
+            <h1>List of All Users</h1>
+        </div>
 
-        <% if (tags) { %>
-        <table class="tags">
+        <% if (users) { %>
+        <table class="users">
             <tr>
-                <th style="min-width: 150px">Tag Name</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>User Type</th>
                 <th>Action</th>
             </tr>
-            <% tags.forEach(tag => { %>
-            <tr class="tag">
-                <td><%= tag.description %></td>
+            <% users.forEach(user => { %>
+            <tr class="users">
+                <td><%= user.email %></td>
+                <td><%= user.username %></td>
+                <td><%= user.type %></td>
                 <td>
+                    <% if (user.username != currentUser.username || user.type !=
+                    'admin') { %>
                     <div class="action-btns">
                         <a
                             class="btn btn-primary"
-                            href="/tags/tag/<%- tag.id %>"
+                            href="/users/user/<%- user.id %>"
                             >Update</a
                         >
-
                         <form
-                            action="/tags/tag/<%= tag.id %>/delete"
+                            action="/users/user/<%= user.username %>/delete"
                             method="POST"
                         >
                             <button class="btn btn-danger">Delete</button>
                         </form>
                     </div>
+                    <% } %>
                 </td>
             </tr>
             <% }) %>

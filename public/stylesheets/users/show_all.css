@@ -1,10 +1,5 @@
-.btn-tag {
-    background-color: blue;
-    color: #fff;
-}
-
-.tags {
-    width: 30%;
+.users {
+    width: 40%;
     border-collapse: collapse;
     margin: 20px 0;
 }

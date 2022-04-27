@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%- include("partials/standard_header.ejs") %>
+        <%- include("../partials/standard_header.ejs") %>
 
         <!-- Custom CSS -->
         <link
@@ -11,12 +11,20 @@
         />
     </head>
     <body>
-        <%- include('./partials/body_start') %>
+        <%- include('../partials/body_start') %>
         <div class="container">
-            <form class="login-form" name="login" action="/login" method="POST">
+            <form class="form" name="login" action="/register" method="POST">
                 <div>
-                    <h1 style="color: white">Login</h1>
+                    <h1>Registration</h1>
                     <div>
+                        <div class="relative">
+                            <input
+                                placeholder="example@example.com"
+                                type="email"
+                                name="email"
+                                required
+                            />
+                        </div>
                         <div class="relative">
                             <input
                                 placeholder="username"
@@ -34,10 +42,10 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit">Log in</button>
+                <button type="submit">Register</button>
             </form>
         </div>
 
-        <%- include("partials/standard_footer.ejs") %>
+        <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>

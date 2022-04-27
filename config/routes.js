@@ -3,6 +3,8 @@ const {
     requiresLogin,
     requiresBloggerOrAdmin,
     requiresAdmin,
+    requiresBlogCreator,
+    requiresBlogCreatorOrAdmin,
 } = require("./middlewares/authorization");
 const blogs = require("../app/blogs");
 const admins = require("../app/admins");
@@ -38,22 +40,56 @@ module.exports = (app, passport, db) => {
     // about me
     app.get("/about-me", requiresLogin, users.renderAboutMe);
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
+    app.post("/about-me/update", requiresLogin, users.updateAboutMe);
+    // user info
+    app.get("/users", requiresAdmin, users.renderUserListPage);
+    app.get("/users/user/:user_id", requiresAdmin, users.renderUserInfoPage);
+    app.post(
+        "/users/user/:user_id/update",
+        requiresAdmin,
+        users.updateUserInfo
+    );
+    app.post(
+        "/users/user/:username/delete",
+        requiresAdmin,
+        users.deleteUserInfo
+    );
 
     // blogs
     app.get("/home", requiresLogin, blogs.renderHome);
     app.get("/blogs/new", requiresBloggerOrAdmin, blogs.renderCreatePage);
     app.post("/blogs/create", requiresBloggerOrAdmin, blogs.createPost);
+    app.get("/blogs/blog/:blog_id", requiresLogin, blogs.showPost);
+    app.get("/blogs/blog/:blog_id/edit", requiresBlogCreator, blogs.editPost);
+    app.post(
+        "/blogs/blog/:blog_id/update",
+        requiresBlogCreator,
+        blogs.updatePost
+    );
+    app.post(
+        "/blogs/blog/:blog_id/delete",
+        requiresBlogCreatorOrAdmin,
+        blogs.deletePost
+    );
+    app.post("/blogs/blog/:blog_id/upvote", requiresLogin, blogs.upvotePost);
 
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
+
+    // post approval
+    app.get("/admin_post_approval", requiresAdmin, admins.renderUnapprovedPostsPage);
+    app.post('/admin_post_approval/unapproved_post/:id/approve', requiresAdmin, admins.approveUnapprovedPost);
+    app.post('/admin_post_approval/unapproved_post/:id/delete', requiresAdmin, admins.deleteUnapprovedPost);
 
     app.get("/health", monitoring.health(db));
 
     // tag
     app.get("/tags", requiresAdmin, tags.renderViewTagsPage);
-    app.get("/tags/:tag_id", requiresAdmin, tags.renderViewTagPage);
+    app.get("/tags/tag/:tag_id", requiresAdmin, tags.renderViewTagPage);
     app.get("/tags/new", requiresAdmin, tags.renderCreatePage);
     app.post("/tags/create", requiresAdmin, tags.createTag);
+    app.post("/tags/tag/:tag_id/update", requiresAdmin, tags.updateTag);
+    app.post("/tags/tag/:tag_id/delete", requiresAdmin, tags.deleteTag);
 
     app.get("*", (req, res) => {
         res.sendStatus(404);
