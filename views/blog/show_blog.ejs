@@ -9,23 +9,23 @@
             type="text/css"
             href="/stylesheets/blog/show_blog.css"
         />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/comments/show_all.css"
+        />
     </head>
+
     <body>
-        <%- include('../partials/body_start') %> <% if (["blogger",
-        "admin"].includes(currentUser.type)) { %>
+        <%- include('../partials/body_start') %> <% if (["blogger", "admin"
+        ].includes(currentUser.type)) { %>
         <div class="blog_actions">
-            
             <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/edit"
                 >Update</a
             >
             <form action="/blogs/blog/<%=blog.id%>/delete" method="POST">
                 <button class="btn btn-danger">Delete</button>
             </form>
-
-            
-
-            
-            
         </div>
         <% } %>
 
@@ -38,7 +38,7 @@
                     <!-- show all tags associated with post should they be available -> Hoa  -->
                     <% if(tags) { %>
                     <div class="tags">
-                        <% tags.forEach(tag => { %>
+                        <% tags.forEach(tag=> { %>
                         <div class="tag">
                             <p><%= tag.description %></p>
                         </div>
@@ -61,69 +61,44 @@
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-body">
-                <div class="text-body">
-                    <h5>Comments:</h1>
-                    <% if(comments) { %>
-                        <div class="tags">
-                            <% comments.forEach(comment => { %>
-                            <div class="tag">
-                                <p><%= comment.body %></p>
-                            </div>
-                            <form action="/blogs/blog/<%=comment.id%>/deleteComm" method="POST">
-                                <button class="btn btn-danger">Delete</button>
-                            </form>
-                            <% }) %>
-                        </div>
-                        
-                        <% } %>
-                    
-                </div>
-                <!-- <div class="blog_actions">
-                    <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/insertComm"
-                        >Update</a
-                    >
-                    <!-- <form action="/blogs/blog/<%=blog.id%>/delete" method="POST">
-                        <button class="btn btn-danger">Delete</button>
-                    </form> -->
-                </div> -->
-                
-            </div>
-        </div>
-        <!-- <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/insert"
-            >Add Comment</a
-        > -->
-        <!-- <form action="/blogs/blog/insert" method="POST">
-            <button class="btn btn-danger">Test Add Comment</button>
-        </form> -->
-        
-        
-
-        <% } %>
-        <%- include('../partials/body_start') %> <% if (["blogger",
-        "admin"].includes(currentUser.type)) { %>
-        <div class = "blog_actions">
+        <div class="blog_actions">
             <form action="/blogs/blog/<%=blog.id%>/insert" method="POST">
                 <label for="description">Add Comment:</label>
                 <input placeholder="Description" name="description" required />
                 <button class="btn btn-primary">Submit</button>
             </form>
-            <!-- <form
-            class="blog-creation-form"
-            name="post"
-            action="/blogs/blog/:blog_id/insert"
-            method="POST"
-        >
-            
-            <textarea placeholder="Body" name="body" required></textarea>
-
-            <div class="btns">
-                <button class="btn btn-primary" type="submit">Add Comment</button>
-            </div>
-        </form> -->
         </div>
-        <% } %>
-        <%- include("../partials/standard_footer.ejs") %>
+
+        <% } %> <% if(comments) { %>
+        <div class="card">
+            <div class="card-body">
+                <div class="text-body">
+                    <h5>Comments:</h5>
+                    <div class="comments">
+                        <% comments.forEach(comment=> { %>
+                        <div class="comment_block">
+                            <p class="comment"><%= comment.body %></p>
+                            <div class="comment_actions">
+                                <a
+                                    class="btn btn-primary"
+                                    href="/blogs/blog/<%=comment.id %>/editComm"
+                                    >Edit</a
+                                >
+                                <form
+                                    action="/blogs/blog/<%=comment.id%>/deleteComm"
+                                    method="POST"
+                                >
+                                    <button class="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %> <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>

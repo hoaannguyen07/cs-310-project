@@ -6,6 +6,12 @@ module.exports = {
         res.render("blog/new");
     },
 
+    renderEditCommPage: (req, res) => {
+        let { comment_id } = req.params;
+
+        res.render("comments/edit");
+    },
+
     
 
     createPost: (req, res) => {

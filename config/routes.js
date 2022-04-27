@@ -76,7 +76,7 @@ module.exports = (app, passport, db) => {
 
     // COMMENTS ADDITIONS FROM AARON
     // app.post("/blogs/blog/:comment_id/", requiresLogin, blogs.addComm);
-    // app.get("/blogs/blog/:blog_id/insertComm", requiresBlogCreator, blogs.renderCreateCommPage);
+    app.get("/blogs/blog/:comment_id/editComm", requiresBloggerOrAdmin, blogs.renderEditCommPage);
     app.post("/blogs/blog/:blog_id/insert", requiresBloggerOrAdmin, blogs.insertComm);
     app.post(
         "/blogs/blog/:comment_id/deleteComm",
