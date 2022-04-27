@@ -31,7 +31,7 @@ module.exports = {
             return res.redirect("/admin_post_approval");
         }
         db.query(
-            "INSERT INTO posts SELECT * FROM unapproved_posts WHERE id=$1;",
+            "INSERT INTO posts (user_id, title, body) SELECT user_id, title, body FROM unapproved_posts WHERE id=$1;",
             [id],
             (err, result) => {
                 if (err || result.rowCount !== 1) {
@@ -58,6 +58,32 @@ module.exports = {
                     return res.redirect("/admin_post_approval");
                 }
             )
+        );
+
+        
+    },
+    deleteUnapprovedPost: (req, res) => {
+        let { id } = req.params;
+        try {
+            id = parseInt(id);
+        } catch (error) {
+            req.flash("error", "Unable to query post");
+            return res.redirect("/admin_post_approval");
+        }
+        db.query(
+                "DELETE FROM unapproved_posts WHERE id=$1",
+                [id],
+                (err, result) => {
+                    if (err) {
+                        req.flash("error", `Unable to delete post ${id}`);
+                    } else {
+                        req.flash(
+                            "success",
+                            `Successfully deleted unapproved post from table`
+                        );
+                    }
+                    return res.redirect("/admin_post_approval");
+                }
         );
 
         
