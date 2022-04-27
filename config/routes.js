@@ -79,6 +79,7 @@ module.exports = (app, passport, db) => {
     // post approval
     app.get("/admin_post_approval", requiresAdmin, admins.renderUnapprovedPostsPage);
     app.post('/admin_post_approval/unapproved_post/:id/approve', requiresAdmin, admins.approveUnapprovedPost);
+    app.post('/admin_post_approval/unapproved_post/:id/delete', requiresAdmin, admins.deleteUnapprovedPost);
 
     app.get("/health", monitoring.health(db));
 
