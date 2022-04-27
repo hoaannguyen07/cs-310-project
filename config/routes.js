@@ -78,6 +78,11 @@ module.exports = (app, passport, db) => {
     // app.post("/blogs/blog/:comment_id/", requiresLogin, blogs.addComm);
     // app.get("/blogs/blog/:blog_id/insertComm", requiresBlogCreator, blogs.renderCreateCommPage);
     app.post("/blogs/blog/:blog_id/insert", requiresBloggerOrAdmin, blogs.insertComm);
+    app.post(
+        "/blogs/blog/:comment_id/deleteComm",
+        requiresBlogCreatorOrAdmin,
+        blogs.deleteComm
+    );
 
     // Hoa
     // admin routes

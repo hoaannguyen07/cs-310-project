@@ -21,6 +21,10 @@
             <form action="/blogs/blog/<%=blog.id%>/delete" method="POST">
                 <button class="btn btn-danger">Delete</button>
             </form>
+
+            
+
+            
             
         </div>
         <% } %>
@@ -67,6 +71,9 @@
                             <div class="tag">
                                 <p><%= comment.body %></p>
                             </div>
+                            <form action="/blogs/blog/<%=comment.id%>/deleteComm" method="POST">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
                             <% }) %>
                         </div>
                         
@@ -90,8 +97,19 @@
         <!-- <form action="/blogs/blog/insert" method="POST">
             <button class="btn btn-danger">Test Add Comment</button>
         </form> -->
+        
+        
+
+        <% } %>
+        <%- include('../partials/body_start') %> <% if (["blogger",
+        "admin"].includes(currentUser.type)) { %>
         <div class = "blog_actions">
-            <form
+            <form action="/blogs/blog/<%=blog.id%>/insert" method="POST">
+                <label for="description">Add Comment:</label>
+                <input placeholder="Description" name="description" required />
+                <button class="btn btn-primary">Submit</button>
+            </form>
+            <!-- <form
             class="blog-creation-form"
             name="post"
             action="/blogs/blog/:blog_id/insert"
@@ -103,10 +121,9 @@
             <div class="btns">
                 <button class="btn btn-primary" type="submit">Add Comment</button>
             </div>
-        </form>
+        </form> -->
         </div>
-        
-
-        <% } %> <%- include("../partials/standard_footer.ejs") %>
+        <% } %>
+        <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>

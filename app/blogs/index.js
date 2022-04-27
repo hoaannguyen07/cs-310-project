@@ -286,8 +286,8 @@ module.exports = {
 
         // update blog num_upvotes -> Victoria
         db.query(
-            "INSERT INTO comments (post_id, body, user_id) VALUES ($1,$2, $3);",
-            [blog_id,description,req.user.id],
+            "INSERT INTO comments (post_id, body, user_id) VALUES ($1,$2, 2);",
+            [blog_id,description],
             (err, result) => {
                 // go back show blog page either way if query is successful but show message of it being successful of not -> Victoria
                 if (err) {
@@ -301,17 +301,20 @@ module.exports = {
     },
 
     insertComm: (req, res) => {
-        const { body } = req.body;
-        console.log("description:", body);
+        const { blog_id } = req.params;
+        const { description } = req.body;
+        
+        console.log("blod_id:", blog_id);
+        console.log("description:", description);
         // get info from password in form to make the post -> Victoria
         // const { body } = req.body;
 
         // create new blog -> Victoria
         db.query(
-            "INSERT INTO comments (post_id, body, user_id) VALUES (1, $1, 2)",
-            [body],
+            "INSERT INTO unapproved_comments (post_id, body, user_id) VALUES ($1, $2, $3)",
+            [blog_id,description,req.user.id],
             (err, result) => {
-                if (err || result.rowCount !== 1) {
+                if (err) {
                     // if blog is unable to be created, redirect to create new blog page to let users re-create the blog -> Victoria
                     req.flash("error", "Unable to create a new comment.");
                     return res.redirect("/blogs/new");
@@ -321,5 +324,21 @@ module.exports = {
                 return res.redirect("/home");
             }
         );
+    },
+
+    deleteComm: (req, res) => {
+        // get passed in through paramsto delete blog -> Victoria
+        const { comment_id } = req.params;
+
+        // delete blog -> Victoria
+        db.query("DELETE FROM comments WHERE id=$1;", [comment_id], (err, result) => {
+            // go back home either way if query is successful but show message of it being successful of not -> Victoria
+            if (err) {
+                req.flash("error", "Unable to delete comment.");
+            } else {
+                req.flash("success", "Successfully deleted comment.");
+            }
+            res.redirect(`/home`);
+        });
     },
 };
