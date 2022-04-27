@@ -20,22 +20,45 @@ module.exports = {
         res.render("tag/new");
     },
 
-    createTag: (req, res) => {
-        const { description } = req.body;
-        console.log("description:", description);
+    approveComm: (req, res) => {
+        let { unapproved_comment_id } = req.params;
+        console.log(unapproved_comment_id);
+        try {
+            unapproved_comment_id = parseInt(unapproved_comment_id);
+        } catch (error) {
+            console.log(error);
+            req.flash("error", "Unable to query tag");
+            res.redirect("/appr_comments");
+        }
+        
 
         db.query(
-            "INSERT INTO tags (description) VALUES ($1)",
-            [description],
+            "INSERT INTO comments (post_id, body, user_id) SELECT post_id, body, user_id FROM unapproved_comments WHERE id=$1;",
+            [unapproved_comment_id],
+            
             (err, result) => {
-                if (err || result.rowCount !== 1) {
-                    req.flash("error", "Unable to create a new tags.");
-                    return res.redirect("/tags");
+                if (err) {
+                    req.flash("error", "Unable to insert comment.");
+                    // return res.redirect("/appr_comments");
                 }
 
-                req.flash("success", "Tag created successfully.");
-                return res.redirect("/admin");
+                req.flash("success", "comment added successfully.");
+                // return res.redirect("/appr_comments");
+                
             }
+            ,db.query(
+                "DELETE FROM unapproved_comments WHERE id=$1",
+                [unapproved_comment_id],
+                (err, result) => {
+                    if (err) {
+                        req.flash("error", "Unable to delete comment.");
+                        return res.redirect("/appr_comments");
+                    }
+    
+                    req.flash("success", "comment deleted successfully.");
+                    return res.redirect("/appr_comments");
+                }
+            )
         );
     },
 

@@ -76,6 +76,7 @@ module.exports = (app, passport, db) => {
     app.get("/appr_comments", requiresAdmin, appr_comments.renderApprCommPage);
     app.get("/appr_comments/unapproved_comment/:unapproved_comment_id", requiresAdmin, appr_comments.renderUpdateCommPage);
     
+    app.post("/appr_comments/unapproved_comment/:unapproved_comment_id/create", requiresAdmin, appr_comments.approveComm);
     app.post("/appr_comments/unapproved_comment/:unapproved_comment_id/update", requiresAdmin, appr_comments.updateComm);
     app.post("/appr_comments/unapproved_comment/:unapproved_comment_id/delete", requiresAdmin, appr_comments.deleteComm);
 
