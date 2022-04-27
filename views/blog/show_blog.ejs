@@ -11,8 +11,8 @@
         />
     </head>
     <body>
-        <%- include('../partials/body_start') %>
-
+        <%- include('../partials/body_start') %> <% if (["blogger",
+        "admin"].includes(currentUser.type)) { %>
         <div class="blog_actions">
             <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/edit"
                 >Update</a
@@ -21,12 +21,15 @@
                 <button class="btn btn-danger">Delete</button>
             </form>
         </div>
+        <% } %>
 
+        <!-- show blog info should it be available -> Victoria  -->
         <% if (blog) { %>
         <div class="card">
             <div class="card-body">
                 <div class="text-body">
                     <h3><%= blog.title %></h3>
+                    <!-- show all tags associated with post should they be available -> Hoa  -->
                     <% if(tags) { %>
                     <div class="tags">
                         <% tags.forEach(tag => { %>

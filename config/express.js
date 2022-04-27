@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const config = require(".");
 
+// configure backend to use sessions & cookeis, passport, use ejs for frontend, and determin where to put all CSS files for project in
 module.exports = (app, passport, pool) => {
     app.set("views", path.join(config.root, "views"));
     app.set("view engine", "ejs");

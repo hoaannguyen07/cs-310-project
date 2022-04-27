@@ -23,16 +23,19 @@
             <h1>Edit Blog Post Page</h1>
         </div>
 
+        <!-- form to update blog, which has list of tags this post can be associated to, and the blog info itself -> Victoria & Hoa  -->
         <form
             class="blog-creation-form"
             name="post"
             action="/blogs/blog/<%= blog.id %>/update"
             method="POST"
         >
+            <!-- Show all possible tags for user to associate their post with -> Hoa  -->
             <% if (tags) { %>
             <div class="tag_list">
                 <% tags.forEach(tag => { %>
                 <div class="tag_check_box">
+                    <!-- default check tag if they are already associated with the post and leave them unchecked otherwise -> Hoa  -->
                     <% if (tag.check) { %>
                     <input
                         type="checkbox"
@@ -52,6 +55,8 @@
                 <% }) %>
             </div>
             <% } %>
+
+            <!-- section to update post info with defaulted input values being the current title & body of the post -> Victoria  -->
             <div class="input_grp">
                 <label for="title"><h4>Title</h4></label>
                 <input

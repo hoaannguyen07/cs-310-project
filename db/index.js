@@ -16,6 +16,7 @@ pool.on("error", (err) => {
     console.error("idle client error", err.message, err.stack);
 });
 
+// define how to query the db and make it into a function to later be used in App
 module.exports = {
     pool,
     query: (text, params, callback) => pool.query(text, params, callback),
