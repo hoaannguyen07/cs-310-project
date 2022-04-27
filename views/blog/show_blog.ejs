@@ -14,12 +14,14 @@
         <%- include('../partials/body_start') %> <% if (["blogger",
         "admin"].includes(currentUser.type)) { %>
         <div class="blog_actions">
+            
             <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/edit"
                 >Update</a
             >
             <form action="/blogs/blog/<%=blog.id%>/delete" method="POST">
                 <button class="btn btn-danger">Delete</button>
             </form>
+            
         </div>
         <% } %>
 
@@ -54,6 +56,57 @@
                 </div>
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="text-body">
+                    <h5>Comments:</h1>
+                    <% if(comments) { %>
+                        <div class="tags">
+                            <% comments.forEach(comment => { %>
+                            <div class="tag">
+                                <p><%= comment.body %></p>
+                            </div>
+                            <% }) %>
+                        </div>
+                        
+                        <% } %>
+                    
+                </div>
+                <!-- <div class="blog_actions">
+                    <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/insertComm"
+                        >Update</a
+                    >
+                    <!-- <form action="/blogs/blog/<%=blog.id%>/delete" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form> -->
+                </div> -->
+                
+            </div>
+        </div>
+        <!-- <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/insert"
+            >Add Comment</a
+        > -->
+        <!-- <form action="/blogs/blog/insert" method="POST">
+            <button class="btn btn-danger">Test Add Comment</button>
+        </form> -->
+        <div class = "blog_actions">
+            <form
+            class="blog-creation-form"
+            name="post"
+            action="/blogs/blog/:blog_id/insert"
+            method="POST"
+        >
+            
+            <textarea placeholder="Body" name="body" required></textarea>
+
+            <div class="btns">
+                <button class="btn btn-primary" type="submit">Add Comment</button>
+            </div>
+        </form>
+        </div>
+        
+
         <% } %> <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>

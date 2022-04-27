@@ -74,6 +74,11 @@ module.exports = (app, passport, db) => {
     );
     app.post("/blogs/blog/:blog_id/upvote", requiresLogin, blogs.upvotePost);
 
+    // COMMENTS ADDITIONS FROM AARON
+    // app.post("/blogs/blog/:comment_id/", requiresLogin, blogs.addComm);
+    // app.get("/blogs/blog/:blog_id/insertComm", requiresBlogCreator, blogs.renderCreateCommPage);
+    app.post("/blogs/blog/:blog_id/insert", requiresBloggerOrAdmin, blogs.insertComm);
+
     // Hoa
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);

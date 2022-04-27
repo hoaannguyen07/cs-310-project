@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/admin-landing.css"
+        />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/blog/create-blog.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>Add Comment Page</h1>
+        </div>
+        <!-- form with title & body to create blog -> Victoria  -->
+        <!-- <% if (blog) { %> -->
+        <form
+            class="blog-creation-form"
+            name="post"
+            action="/blogs/blog/<%=blog.id%>/insert"
+            method="POST"
+        >
+            
+            <textarea placeholder="Type here:" name="body" required></textarea>
+
+            <div class="btns">
+                <button class="btn btn-primary" type="submit">Post</button>
+            </div>
+        </form>
+        <!-- <% } %> -->
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>
