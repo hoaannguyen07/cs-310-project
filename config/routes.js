@@ -78,6 +78,7 @@ module.exports = (app, passport, db) => {
     // app.post("/blogs/blog/:comment_id/", requiresLogin, blogs.addComm);
     app.get("/blogs/blog/:comment_id/editComm", requiresBloggerOrAdmin, blogs.renderEditCommPage);
     app.post("/blogs/blog/:blog_id/insert", requiresBloggerOrAdmin, blogs.insertComm);
+    app.post("/blogs/blog/:comment_id/editComm2", requiresBloggerOrAdmin, blogs.updateComm);
     app.post(
         "/blogs/blog/:comment_id/deleteComm",
         requiresBlogCreatorOrAdmin,
