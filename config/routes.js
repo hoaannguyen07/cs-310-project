@@ -74,6 +74,29 @@ module.exports = (app, passport, db) => {
     );
     app.post("/blogs/blog/:blog_id/upvote", requiresLogin, blogs.upvotePost);
 
+    // COMMENTS ADDITIONS FROM AARON
+    // app.post("/blogs/blog/:comment_id/", requiresLogin, blogs.addComm);
+    app.get(
+        "/blogs/blog/:comment_id/editComm",
+        requiresBloggerOrAdmin,
+        blogs.renderEditCommPage
+    );
+    app.post(
+        "/blogs/blog/:blog_id/insert",
+        requiresBloggerOrAdmin,
+        blogs.insertComm
+    );
+    app.post(
+        "/blogs/blog/:comment_id/editComm2",
+        requiresBloggerOrAdmin,
+        blogs.updateComm
+    );
+    app.post(
+        "/blogs/blog/:comment_id/deleteComm",
+        requiresBlogCreatorOrAdmin,
+        blogs.deleteComm
+    );
+
     // Hoa
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
@@ -84,13 +107,21 @@ module.exports = (app, passport, db) => {
         requiresAdmin,
         admins.renderUnapprovedPostsPage
     );
-    app.get("/admin_post_approval/unapproved_post/:id/edit", requiresAdmin, admins.editUnapprovedPost);
+    app.get(
+        "/admin_post_approval/unapproved_post/:id/edit",
+        requiresAdmin,
+        admins.editUnapprovedPost
+    );
     app.post(
         "/admin_post_approval/unapproved_post/:id/approve",
         requiresAdmin,
         admins.approveUnapprovedPost
     );
-    app.post('/admin_post_approval/unapproved_post/:id/delete', requiresAdmin, admins.deleteUnapprovedPost);
+    app.post(
+        "/admin_post_approval/unapproved_post/:id/delete",
+        requiresAdmin,
+        admins.deleteUnapprovedPost
+    );
     app.post(
         "/admin_post_approval/unapproved_post/:id/update",
         requiresAdmin,
@@ -99,6 +130,7 @@ module.exports = (app, passport, db) => {
 
     app.get("/health", monitoring.health(db));
 
+    // Victoria
     // tag
     app.get("/tags", requiresAdmin, tags.renderViewTagsPage);
     app.get("/tags/tag/:tag_id", requiresAdmin, tags.renderViewTagPage);
