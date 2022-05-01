@@ -73,6 +73,7 @@ module.exports = (app, passport, db) => {
     app.post("/tags/tag/:tag_id/delete", requiresAdmin, tags.deleteTag);
 
     // appr_comments
+    // THESE ROUTES ARE DONE BY AARON WEAST REFERING TO THE UNAPPROVED COMMENTS PAGE
     app.get("/appr_comments", requiresAdmin, appr_comments.renderApprCommPage);
     app.get("/appr_comments/unapproved_comment/:unapproved_comment_id", requiresAdmin, appr_comments.renderUpdateCommPage);
     

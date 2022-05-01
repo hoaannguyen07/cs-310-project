@@ -1,7 +1,9 @@
 const db = require("../../db");
 
+// THESE FUNCTIONS DONE BY AARON WEAST REFERING TO THE UNAPPROVED COMMENTS PAGE
 module.exports = {
     renderApprCommPage: (req, res) => {
+        // THIS FUNCTION RENDERES THE UNAPPROVED COMMENTS PAGE
         db.query(
             "SELECT * FROM unapproved_comments ORDER BY id ASC",
             [],
@@ -16,11 +18,11 @@ module.exports = {
         );
     },
 
-    renderCreatePage: (req, res) => {
-        res.render("tag/new");
-    },
+    
 
     approveComm: (req, res) => {
+        // THIS FUNCTION APPROVES THE COMMENT WHICH INSERTS INTO THE COMMENTS
+        // TABLE AND DELETES FROM THIS TABLE
         let { unapproved_comment_id } = req.params;
         console.log(unapproved_comment_id);
         try {
@@ -63,6 +65,7 @@ module.exports = {
     },
 
     renderUpdateCommPage: (req, res) => {
+        // THIS FUNCTION RENDERS THE PAGE TO UPDATE THE COMMENT
         // console.log("Params", req.params);
         let { unapproved_comment_id } = req.params;
         try {
@@ -90,6 +93,7 @@ module.exports = {
     },
 
     updateComm: (req, res) => {
+        // THIS FUNCTION UPDATES THE UNAPPROVED COMMENT TO WHAT THE USER INPUTTED
         let { unapproved_comment_id } = req.params;
         try {
             unapproved_comment_id = parseInt(unapproved_comment_id);
@@ -117,6 +121,7 @@ module.exports = {
     },
 
     deleteComm: (req, res) => {
+        // THIS FUNCTION DELETES THE COMMENT IF NOT APPROVED
         let { unapproved_comment_id } = req.params;
         try {
             unapproved_comment_id = parseInt(unapproved_comment_id);

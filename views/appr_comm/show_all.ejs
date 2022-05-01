@@ -9,11 +9,17 @@
 </head>
 
 <body>
+    <!-- PAGE DONE BY AARON WEAST -->
+    <!-- THIS IS THE PAGE WHERE ALL UNAPPROVED COMMENTS ARE DISPLAYED -->
     <%- include('../partials/body_start') %>
 
+        <!-- HEADER-->
         <h1>Displaying All Unapproved Comments</h1>
         <!-- <a class="btn btn-primary" href="/tags/new">Add Tag</a> -->
 
+        <!-- USING THE UNAPPROVED COMMENTS TABLE IN DATABASE FROM ROUTES,
+            WE DISPLAY EACH COMMENT ID, USER ID, POST ID, AND BODY FOR EACH
+            COMMENT -->
         <% if (unapproved_comments) { %>
             <table class="tags">
                 <tr>
@@ -39,20 +45,9 @@
                         </td>
                         <td>
                             <div class="action-btns">
-                                <!-- <a class="btn btn-primary" href="#">Approve</a> -->
-                                <!-- <form
-                                    action="/appr_comments/unapproved_comment/<%= unapproved_comment.id %>/delete"
-                                    method="POST"
-                                >
-                                
-                                <button class="btn btn-danger">Approve</button>
-                                </form> -->
-                                <!-- <form name="create-tag" action="/appr_comments/create" method="POST">
-                                    <label for="description">Tag Description:</label>
-                                    <input placeholder="Description" name="description" required />
-                                    <button class="btn btn-tag" type="submit">Post</button>
-                                </form> -->
+                               
 
+                                <!-- BUTTONS TO THEN APPROVE, DENY, OR EDIT COMMENTS -->
                                 <a
                                     class="btn btn-primary"
                                     href="/appr_comments/unapproved_comment/<%- unapproved_comment.id %>"
