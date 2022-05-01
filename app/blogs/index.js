@@ -6,6 +6,36 @@ module.exports = {
         res.render("blog/new");
     },
 
+    renderEditCommPage: (req, res) => {
+        let { comment_id } = req.params;
+
+        db.query(
+            "SELECT comments.id, comments.body FROM comments WHERE comments.id=$1;",
+            [comment_id],
+            (comm_err, comm_result) => {
+                if (comm_err) {
+                    // even if tags cannot be queried, post can still be shown, just with the tags it is associated with -> Hoa
+                    req.flash(
+                        "error",
+                        "Unable to query commments for this blog post"
+                    );
+                    return res.render("blog/show_blog", {
+                       // make sure that no tags are rendered -> Hoa
+                        comments: undefined,
+                    });
+                }
+                // show blog and pass in the blog info along with the tags associated with the blogs -> Victoria & Hoa
+                return res.render("comments/edit", {
+                    
+                    comments: comm_result.rows,
+                });
+            }
+            
+        );
+
+        // res.render("comments/edit");
+    },
+
     
 
     createPost: (req, res) => {
@@ -340,5 +370,29 @@ module.exports = {
             }
             res.redirect(`/home`);
         });
+    },
+
+    updateComm: (req, res) => {
+        // get passed in through params or form to update blog -> Victoria
+        const { comment_id } = req.params;
+        const { description } = req.body;
+
+        
+
+        // update blog info -> Victoria
+        db.query(
+            "UPDATE comments SET body=$1 WHERE id=$2;",
+            [description, comment_id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", `Unable to update comment ${comment_id}`);
+                } else {
+                    req.flash("success", `Comment ${comment_id} updated successfully.`);
+                }
+
+                // redicrt to tags page after every attempt to update tag -> Victoria
+                return res.redirect("/home");
+            }
+        );
     },
 };

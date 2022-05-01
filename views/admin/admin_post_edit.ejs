@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/admin-landing.css"
+        />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/blog/edit_blog.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <div>
+            <h1>Edit Unapproved Post Page</h1>
+        </div>
+
+        <!-- form to update blog, which has list of tags this post can be associated to, and the blog info itself -> Victoria & Hoa  -->
+        <form
+            class="blog-creation-form"
+            name="post"
+            action="/admin_post_approval/unapproved_post/<%= post.id %>/update"
+            method="POST"
+        >
+            <!-- section to update post info with defaulted input values being the current title & body of the post -> Victoria  -->
+            <div class="input_grp">
+                <label for="title"><h4>Title</h4></label>
+                <input
+                    placeholder="Title"
+                    name="title"
+                    value="<%- post.title %>"
+                    required
+                />
+            </div>
+            <div class="input_grp">
+                <label for="body"><h4>Body</h4></label>
+                <textarea name="body" required><%- post.body %></textarea>
+            </div>
+            <div class="btns">
+                <button class="btn btn-primary" type="submit">Update</button>
+            </div>
+        </form>
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>

@@ -76,11 +76,20 @@ module.exports = (app, passport, db) => {
 
     // COMMENTS ADDITIONS FROM AARON
     // app.post("/blogs/blog/:comment_id/", requiresLogin, blogs.addComm);
-    // app.get("/blogs/blog/:blog_id/insertComm", requiresBlogCreator, blogs.renderCreateCommPage);
+    app.get(
+        "/blogs/blog/:comment_id/editComm",
+        requiresBloggerOrAdmin,
+        blogs.renderEditCommPage
+    );
     app.post(
         "/blogs/blog/:blog_id/insert",
         requiresBloggerOrAdmin,
         blogs.insertComm
+    );
+    app.post(
+        "/blogs/blog/:comment_id/editComm2",
+        requiresBloggerOrAdmin,
+        blogs.updateComm
     );
     app.post(
         "/blogs/blog/:comment_id/deleteComm",
@@ -98,10 +107,25 @@ module.exports = (app, passport, db) => {
         requiresAdmin,
         admins.renderUnapprovedPostsPage
     );
+    app.get(
+        "/admin_post_approval/unapproved_post/:id/edit",
+        requiresAdmin,
+        admins.editUnapprovedPost
+    );
     app.post(
         "/admin_post_approval/unapproved_post/:id/approve",
         requiresAdmin,
         admins.approveUnapprovedPost
+    );
+    app.post(
+        "/admin_post_approval/unapproved_post/:id/delete",
+        requiresAdmin,
+        admins.deleteUnapprovedPost
+    );
+    app.post(
+        "/admin_post_approval/unapproved_post/:id/update",
+        requiresAdmin,
+        admins.updateUnapprovedPost
     );
 
     app.get("/health", monitoring.health(db));

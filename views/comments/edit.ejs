@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/admin-landing.css"
+        />
+
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/blog/edit_blog.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+
+        <h1>HELLO</h1>
+
+        <% if(comments) { %>
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-body">
+                        <h5>Comments:</h5>
+                        <div class="comments">
+                            <% comments.forEach(comment=> { %>
+                            <div class="comment_block">
+                                <p class="comment">Comment id: <%= comment.id %></p>
+                                <p class="comment"><%= comment.body %></p>
+                                <form action="/blogs/blog/<%=comment.id%>/editComm2" method="POST">
+                                    <label for="description">Edit Comment:</label>
+                                    <input placeholder="Description" name="description" required />
+                                    <button class="btn btn-primary">Submit</button>
+                                </form>
+                                
+                            </div>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>
