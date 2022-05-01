@@ -77,7 +77,11 @@ module.exports = (app, passport, db) => {
     // COMMENTS ADDITIONS FROM AARON
     // app.post("/blogs/blog/:comment_id/", requiresLogin, blogs.addComm);
     // app.get("/blogs/blog/:blog_id/insertComm", requiresBlogCreator, blogs.renderCreateCommPage);
-    app.post("/blogs/blog/:blog_id/insert", requiresBloggerOrAdmin, blogs.insertComm);
+    app.post(
+        "/blogs/blog/:blog_id/insert",
+        requiresBloggerOrAdmin,
+        blogs.insertComm
+    );
     app.post(
         "/blogs/blog/:comment_id/deleteComm",
         requiresBlogCreatorOrAdmin,
@@ -102,6 +106,7 @@ module.exports = (app, passport, db) => {
 
     app.get("/health", monitoring.health(db));
 
+    // Victoria
     // tag
     app.get("/tags", requiresAdmin, tags.renderViewTagsPage);
     app.get("/tags/tag/:tag_id", requiresAdmin, tags.renderViewTagPage);
