@@ -42,6 +42,11 @@ module.exports = (app, passport, db) => {
     app.get("/about-me", requiresLogin, users.renderAboutMe);
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
     app.post("/about-me/update", requiresLogin, users.updateAboutMe);
+    // user email
+    app.get("/about-me/email", requiresLogin, users.renderEditEmail);
+    app.post("/about-me/update-email", requiresLogin, users.updateEmail);
+    app.post("/about-me/add-email", requiresLogin, users.addEmail);
+    app.post("/about-me/delete-email", requiresLogin, users.deleteEmail);
     // user info on the admin side
     app.get("/users", requiresAdmin, users.renderUserListPage);
     app.get("/users/user/:user_id", requiresAdmin, users.renderUserInfoPage);

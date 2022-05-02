@@ -55,7 +55,19 @@ module.exports = {
 
     // Hoa
     renderAboutMe: (req, res) => {
-        return res.render("about_me/show");
+        db.query(
+            "SELECT id, user_id, allow_post_notifications, allow_comment_notifications FROM email_list WHERE user_id=$1;",
+            [req.user.id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query email list");
+                    return res.render("/home");
+                }
+                return res.render("about_me/show", {
+                    email_list: result.rows[0],
+                });
+            }
+        );
     },
 
     // Hoa
@@ -81,6 +93,78 @@ module.exports = {
 
                 // go back to profile viewing page if successful -> Hoa
                 req.flash("success", "Successfully updated user information");
+                return res.redirect("/about-me");
+            }
+        );
+    },
+
+    renderEditEmail:(req, res) =>{
+        db.query(
+            "SELECT id, user_id, allow_post_notifications, allow_comment_notifications FROM email_list WHERE user_id=$1;",
+            [req.user.id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query email list");
+                    return res.render("/about_me");
+                }
+                console.log(result.rows[0])
+                return res.render("about_me/email", {
+                    email_list: result.rows[0],
+                });
+            }
+        );
+    },
+
+    updateEmail: (req, res) =>{
+        const {post, comment} = req.body;
+        db.query(
+            "UPDATE email_list SET allow_post_notifications=$1, allow_comment_notifications=$2 WHERE user_id=$3;",
+            [post, comment, req.user.id],
+            (err, result) => {
+                // failure if there's an error or if anything other than 1 row is
+                if (err || result.rowCount != 1) {
+                    console.log("post " + post)
+                    req.flash(
+                        "error",
+                        `Error updating email information`
+                    );
+                } else {
+                    console.log("post " + post)
+                    req.flash(
+                        "success",
+                        `Successfully updated email information`
+                    );
+                }
+
+                return res.redirect("/about-me");
+            }
+        );
+    },
+
+    addEmail: (req, res) =>{
+        db.query(
+            "INSERT INTO email_list(user_id, allow_post_notifications, allow_comment_notifications) VALUES ($1, $2, $3);",
+            [req.user.id, false, false],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to register email");
+                    return res.redirect("/about-me");
+                }
+                return res.redirect("/about-me/email");
+            }
+        );
+    },
+
+    deleteEmail: (req, res) =>{
+        db.query(
+            "DELETE FROM email_list WHERE user_id=$1;",
+            [req.user.id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to delete email");
+                    return res.redirect("/about-me/email");
+                }
+                req.flash("success", "Removed email from email list")
                 return res.redirect("/about-me");
             }
         );
