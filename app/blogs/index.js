@@ -6,7 +6,9 @@ module.exports = {
         res.render("blog/new");
     },
 
+    // AARON WEAST
     renderEditCommPage: (req, res) => {
+        // RENDER PAGE TO EDIT COMMENTS
         let { comment_id } = req.params;
 
         db.query(
@@ -331,25 +333,27 @@ module.exports = {
     },
 
     insertComm: (req, res) => {
+        // DONE BY AARON WEAST
+        // FUNCTION TO INSERT COMMENT INTO UNAPPROVED COMMENTS
         const { blog_id } = req.params;
         const { description } = req.body;
         
         console.log("blod_id:", blog_id);
         console.log("description:", description);
-        // get info from password in form to make the post -> Victoria
+        
         // const { body } = req.body;
 
-        // create new blog -> Victoria
+        // CREATE NEW COMMENT
         db.query(
             "INSERT INTO unapproved_comments (post_id, body, user_id) VALUES ($1, $2, $3)",
             [blog_id,description,req.user.id],
             (err, result) => {
                 if (err) {
-                    // if blog is unable to be created, redirect to create new blog page to let users re-create the blog -> Victoria
+                    
                     req.flash("error", "Unable to create a new comment.");
                     return res.redirect("/blogs/new");
                 }
-                // if blog is created successfully, then go to page to show all blogs -> Victoria
+                // REDIRECT AFTER FINISH
                 req.flash("success", "comment created successfully.");
                 return res.redirect("/home");
             }
@@ -357,12 +361,14 @@ module.exports = {
     },
 
     deleteComm: (req, res) => {
-        // get passed in through paramsto delete blog -> Victoria
+        // DONE BY AARON WEAST
+        // DELETE COMMENT FUNCTION
+       
         const { comment_id } = req.params;
 
-        // delete blog -> Victoria
+        // DELETE COMMENT 
         db.query("DELETE FROM comments WHERE id=$1;", [comment_id], (err, result) => {
-            // go back home either way if query is successful but show message of it being successful of not -> Victoria
+            // ERROR CHECK AND REDIRECT
             if (err) {
                 req.flash("error", "Unable to delete comment.");
             } else {
@@ -373,24 +379,27 @@ module.exports = {
     },
 
     updateComm: (req, res) => {
-        // get passed in through params or form to update blog -> Victoria
+        // DONE BY AARON WEAST
+        // FUNCTION TO UPDATE COMMENT ON POST
+        
         const { comment_id } = req.params;
         const { description } = req.body;
 
         
 
-        // update blog info -> Victoria
+        // UPDATE COMMENT FROM INPUT
         db.query(
             "UPDATE comments SET body=$1 WHERE id=$2;",
             [description, comment_id],
             (err, result) => {
+                // ERROR CHECK AND REDIRECT
                 if (err) {
                     req.flash("error", `Unable to update comment ${comment_id}`);
                 } else {
                     req.flash("success", `Comment ${comment_id} updated successfully.`);
                 }
 
-                // redicrt to tags page after every attempt to update tag -> Victoria
+                
                 return res.redirect("/home");
             }
         );

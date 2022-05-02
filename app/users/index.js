@@ -55,7 +55,20 @@ module.exports = {
 
     // Hoa
     renderAboutMe: (req, res) => {
-        return res.render("about_me/show");
+        // Query and email portion of landing done by Zach, get email status for that user and pass to page for render
+        db.query(
+            "SELECT id, user_id, allow_post_notifications, allow_comment_notifications FROM email_list WHERE user_id=$1;",
+            [req.user.id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query email list");
+                    return res.render("/home");
+                }
+                return res.render("about_me/show", {
+                    email_list: result.rows[0],
+                });
+            }
+        );
     },
 
     // Hoa
@@ -81,6 +94,89 @@ module.exports = {
 
                 // go back to profile viewing page if successful -> Hoa
                 req.flash("success", "Successfully updated user information");
+                return res.redirect("/about-me");
+            }
+        );
+    },
+
+    // Zach
+    // Renders the edit email page with the correct status of the user's email
+    renderEditEmail:(req, res) =>{
+        // Gets the current user's email data
+        db.query(
+            "SELECT id, user_id, allow_post_notifications, allow_comment_notifications FROM email_list WHERE user_id=$1;",
+            [req.user.id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to query email list");
+                    return res.render("/about_me");
+                }
+                // console.log(result.rows[0])
+                return res.render("about_me/email", {
+                    email_list: result.rows[0],
+                });
+            }
+        );
+    },
+    
+    // Zach
+    // Update the changes to email data to the database
+    updateEmail: (req, res) =>{
+        // Get the changes from the form
+        const {post, comment} = req.body;
+        // update the database with the changes from the form
+        db.query(
+            "UPDATE email_list SET allow_post_notifications=$1, allow_comment_notifications=$2 WHERE user_id=$3;",
+            [post, comment, req.user.id],
+            (err, result) => {
+                // failure if there's an error or if anything other than 1 row is sent
+                if (err || result.rowCount != 1) {
+                    req.flash(
+                        "error",
+                        `Error updating email information`
+                    );
+                } else {
+                    req.flash(
+                        "success",
+                        `Successfully updated email information`
+                    );
+                }
+                // Send back to about me landing
+                return res.redirect("/about-me");
+            }
+        );
+    },
+
+    // Zach
+    // Insert email into email list
+    addEmail: (req, res) =>{
+        // adds the user's email into the email_list table with default values, then redirects user to edit page to set what they would like
+        db.query(
+            "INSERT INTO email_list(user_id, allow_post_notifications, allow_comment_notifications) VALUES ($1, $2, $3);",
+            [req.user.id, false, false],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to register email");
+                    return res.redirect("/about-me");
+                }
+                return res.redirect("/about-me/email");
+            }
+        );
+    },
+
+    // Zach
+    // Delete feature for email_list, allows user to remove their email from the notifications table
+    deleteEmail: (req, res) =>{
+        // deletes the row for the current user's email
+        db.query(
+            "DELETE FROM email_list WHERE user_id=$1;",
+            [req.user.id],
+            (err, result) => {
+                if (err) {
+                    req.flash("error", "Unable to delete email");
+                    return res.redirect("/about-me/email");
+                }
+                req.flash("success", "Removed email from email list")
                 return res.redirect("/about-me");
             }
         );

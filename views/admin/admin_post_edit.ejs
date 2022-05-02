@@ -23,14 +23,14 @@
             <h1>Edit Unapproved Post Page</h1>
         </div>
 
-        <!-- form to update blog, which has list of tags this post can be associated to, and the blog info itself -> Victoria & Hoa  -->
+        <!-- form to update the unapproved post, the post info itself - Zach -->
         <form
             class="blog-creation-form"
             name="post"
             action="/admin_post_approval/unapproved_post/<%= post.id %>/update"
             method="POST"
         >
-            <!-- section to update post info with defaulted input values being the current title & body of the post -> Victoria  -->
+            <!-- section to update post info with defaulted input values being the current title & body of the post - Zach  -->
             <div class="input_grp">
                 <label for="title"><h4>Title</h4></label>
                 <input

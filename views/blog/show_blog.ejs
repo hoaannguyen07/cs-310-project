@@ -61,10 +61,12 @@
             </div>
         </div>
 
-        <div class="blog_actions">
+        <div class="make_comment">
             <form action="/blogs/blog/<%=blog.id%>/insert" method="POST">
-                <label for="description">Add Comment:</label>
-                <input placeholder="Description" name="description" required />
+                <div class="comment_input">
+                    <label for="description">Add Comment:</label>
+                    <input placeholder="Description" name="description" required />
+                </div>
                 <button class="btn btn-primary">Submit</button>
             </form>
         </div>
@@ -74,10 +76,10 @@
             <div class="card-body">
                 <div class="text-body">
                     <h5>Comments:</h5>
-                    <div class="comments">
+                    <div class="blog_comments">
                         <% comments.forEach(comment=> { %>
-                        <div class="comment_block">
-                            <p class="comment"><%= comment.body %></p>
+                        <div class="blog_comment_block">
+                            <p class="blog_comment"><%= comment.body %></p>
                             <div class="comment_actions">
                                 <a
                                     class="btn btn-primary"

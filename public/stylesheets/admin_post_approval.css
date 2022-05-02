@@ -1,4 +1,4 @@
-.users {
+.unapproved_posts {
     width: 40%;
     border-collapse: collapse;
     margin: 20px 0;
@@ -22,7 +22,7 @@ th {
 
 .action-btns {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 10px;
 }
 
