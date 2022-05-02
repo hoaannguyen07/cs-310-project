@@ -61,10 +61,12 @@
             </div>
         </div>
 
-        <div class="blog_actions">
+        <div class="make_comment">
             <form action="/blogs/blog/<%=blog.id%>/insert" method="POST">
-                <label for="description">Add Comment:</label>
-                <input placeholder="Description" name="description" required />
+                <div class="comment_input">
+                    <label for="description">Add Comment:</label>
+                    <input placeholder="Description" name="description" required />
+                </div>
                 <button class="btn btn-primary">Submit</button>
             </form>
         </div>
