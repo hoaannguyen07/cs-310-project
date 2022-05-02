@@ -23,7 +23,7 @@
                     <th>Action</th>
                 </tr>
                 <% unapproved_posts.forEach(unapproved_post=> { %>
-                    <tr class="unapproved_posts">
+                    <tr class="unapproved_post">
                         <td>
                             <%= unapproved_post.title %>
                         </td>
@@ -33,18 +33,16 @@
                         <td>
                             <!-- Buttons for each unapproved post allowing the different features of the feature set - Zach -->
                             <div class="action-btns">
-                                <form
-                                    action="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/approve"
-                                    method="POST"
-                                >
-                                    <button class="btn btn-danger">Approve</button>
+                                <form action="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/approve"
+                                    method="POST">
+                                    <button class="btn btn-success">Approve</button>
                                 </form>
-                                <form action="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/delete" method="POST">
+                                <a class="btn btn-primary"
+                                    href="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/edit">Update</a>
+                                <form action="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/delete"
+                                    method="POST">
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
-                                <a class="btn btn-primary" href="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/edit"
-                                    >Update</a
-                                >
                             </div>
                         </td>
                     </tr>

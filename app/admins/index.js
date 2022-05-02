@@ -17,7 +17,7 @@ module.exports = {
                     req.flash("error", "Unable to query unapproved posts");
                     return res.render("admin/admin_post_approval");
                 }
-                console.log(result.rows)
+                // console.log(result.rows)
                 return res.render("admin/admin_post_approval", {
                     unapproved_posts: result.rows,
                 });
