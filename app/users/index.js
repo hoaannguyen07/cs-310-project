@@ -111,7 +111,7 @@ module.exports = {
                     req.flash("error", "Unable to query email list");
                     return res.render("/about_me");
                 }
-                console.log(result.rows[0])
+                // console.log(result.rows[0])
                 return res.render("about_me/email", {
                     email_list: result.rows[0],
                 });

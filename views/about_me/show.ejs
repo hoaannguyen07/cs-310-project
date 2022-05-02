@@ -5,35 +5,40 @@
 
         <!-- Custom CSS -->
         <link rel="stylesheet" type="text/css" href="/stylesheets/main.css" />
+        <link rel="stylesheet" type="text/css" href="/stylesheets/about-me/show.css" />
     </head>
     <body>
         <%- include('../partials/body_start') %>
         <!-- Show user information -> Hoa  -->
         <!-- Show user email list information - Zach -->
         <div>
-            <h2>Email: <%- currentUser.email %></h2>
-                <% if (email_list == null){ %>
-                    <h3>Email not registered for our list</h3>
+            <div class="user_info">
+                <h2>Email: <%- currentUser.email %></h2>
+                    
+                <h2>Username: <%- currentUser.username %></h2>
+                <h2>Type: <%- currentUser.type %></h2>
+
+            </div>
+            <% if (email_list == null){ %>
+                <h2>Email not registered for our list</h3>
+            <% } else { %>
+                <h2>Email is registered for our list:</h3>
+                <% if (email_list.allow_post_notifications == true){ %>
+                    <h3 class="email_txt">Email registered for post notifications</h3>
                 <% } else { %>
-                    <h3>Email is registered for our list:</h3>
-                    <% if (email_list.allow_post_notifications == true){ %>
-                        <h3>Email registered for post notifications</h3>
-                    <% } else { %>
-                        <h3>Email not registered for post notifications</h3>
-                    <% } %>
-                    <% if (email_list.allow_comment_notifications == true){ %>
-                        <h3>Email registered for comment notifications</h3>
-                    <% } else { %>
-                        <h3>Email not registered for comment notifications</h3>
-                    <% } %>
+                    <h3 class="email_txt">Email not registered for post notifications</h3>
                 <% } %>
-            <h2>Username: <%- currentUser.username %></h2>
-            <h2>Type: <%- currentUser.type %></h2>
+                <% if (email_list.allow_comment_notifications == true){ %>
+                    <h3 class="email_txt">Email registered for comment notifications</h3>
+                <% } else { %>
+                    <h3 class="email_txt">Email not registered for comment notifications</h3>
+                <% } %>
+            <% } %>
         </div>
 
         <%- include("../partials/standard_footer.ejs") %>
 
-        <a class="btn btn-primary" href="/about-me/edit">Edit Profile</a>
+        <a class="btn btn-primary edit_profile_btn" href="/about-me/edit">Edit Profile</a>
         <br>
         <!-- Show user the sign up or edit button depending on if they are in the email list table - Zach -->
         <% if (email_list == null){ %>

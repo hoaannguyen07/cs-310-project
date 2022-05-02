@@ -25,3 +25,8 @@ button {
     width: 50%;
     justify-self: center;
 }
+
+.update_btn {
+    margin: 15px 0;
+    
+}
