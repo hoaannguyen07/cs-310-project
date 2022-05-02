@@ -12,7 +12,8 @@
     </head>
     <body>
         <%- include('../partials/body_start') %>
-        <!-- Show user info in form form so they can update info but they can't change username (no one can) or user type (job of an admin) -> Hoa  -->
+        <!-- Show email info in form by radio button so they can update info - Zach  -->
+        <!-- Buttons will show checked by their current status and send the appropriate values when form is submitted -->
         <form action="/about-me/update-email" method="POST">
             <h1>Edit Email Notifications</h1>
             <div class="grid-row">
@@ -103,6 +104,7 @@
             </button>
         </form>
         <br>
+        <!-- email list delete feature to remove the current user's email from the list -->
         <form action="/about-me/delete-email" method="POST">
             <button class="btn btn-danger" type="submit">
                 Unsubscribe

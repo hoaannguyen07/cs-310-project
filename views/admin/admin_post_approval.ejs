@@ -14,7 +14,7 @@
         <div>
             <h1>List of Unapproved Posts</h1>
         </div>
-
+        <!-- displays the unapproved posts received from the query to get all fo them from the database - Zach -->
         <% if (unapproved_posts) { %>
             <table class="unapproved_posts">
                 <tr>
@@ -31,6 +31,7 @@
                             <%= unapproved_post.body %>
                         </td>
                         <td>
+                            <!-- Buttons for each unapproved post allowing the different features of the feature set - Zach -->
                             <div class="action-btns">
                                 <form
                                     action="/admin_post_approval/unapproved_post/<%= unapproved_post.id %>/approve"

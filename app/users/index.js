@@ -55,6 +55,7 @@ module.exports = {
 
     // Hoa
     renderAboutMe: (req, res) => {
+        // Query and email portion of landing done by Zach, get email status for that user and pass to page for render
         db.query(
             "SELECT id, user_id, allow_post_notifications, allow_comment_notifications FROM email_list WHERE user_id=$1;",
             [req.user.id],
@@ -98,7 +99,10 @@ module.exports = {
         );
     },
 
+    // Zach
+    // Renders the edit email page with the correct status of the user's email
     renderEditEmail:(req, res) =>{
+        // Gets the current user's email data
         db.query(
             "SELECT id, user_id, allow_post_notifications, allow_comment_notifications FROM email_list WHERE user_id=$1;",
             [req.user.id],
@@ -114,34 +118,39 @@ module.exports = {
             }
         );
     },
-
+    
+    // Zach
+    // Update the changes to email data to the database
     updateEmail: (req, res) =>{
+        // Get the changes from the form
         const {post, comment} = req.body;
+        // update the database with the changes from the form
         db.query(
             "UPDATE email_list SET allow_post_notifications=$1, allow_comment_notifications=$2 WHERE user_id=$3;",
             [post, comment, req.user.id],
             (err, result) => {
-                // failure if there's an error or if anything other than 1 row is
+                // failure if there's an error or if anything other than 1 row is sent
                 if (err || result.rowCount != 1) {
-                    console.log("post " + post)
                     req.flash(
                         "error",
                         `Error updating email information`
                     );
                 } else {
-                    console.log("post " + post)
                     req.flash(
                         "success",
                         `Successfully updated email information`
                     );
                 }
-
+                // Send back to about me landing
                 return res.redirect("/about-me");
             }
         );
     },
 
+    // Zach
+    // Insert email into email list
     addEmail: (req, res) =>{
+        // adds the user's email into the email_list table with default values, then redirects user to edit page to set what they would like
         db.query(
             "INSERT INTO email_list(user_id, allow_post_notifications, allow_comment_notifications) VALUES ($1, $2, $3);",
             [req.user.id, false, false],
@@ -155,7 +164,10 @@ module.exports = {
         );
     },
 
+    // Zach
+    // Delete feature for email_list, allows user to remove their email from the notifications table
     deleteEmail: (req, res) =>{
+        // deletes the row for the current user's email
         db.query(
             "DELETE FROM email_list WHERE user_id=$1;",
             [req.user.id],

@@ -9,6 +9,7 @@
     <body>
         <%- include('../partials/body_start') %>
         <!-- Show user information -> Hoa  -->
+        <!-- Show user email list information - Zach -->
         <div>
             <h2>Email: <%- currentUser.email %></h2>
                 <% if (email_list == null){ %>
@@ -34,6 +35,7 @@
 
         <a class="btn btn-primary" href="/about-me/edit">Edit Profile</a>
         <br>
+        <!-- Show user the sign up or edit button depending on if they are in the email list table - Zach -->
         <% if (email_list == null){ %>
             <form action="/about-me/add-email" method="POST">
                 <button class="btn btn-primary" type="submit">

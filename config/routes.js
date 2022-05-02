@@ -38,11 +38,11 @@ module.exports = (app, passport, db) => {
     );
     // logout
     app.get("/logout", users.logout);
-    // about me
+    // about me (Zach for email portion of about me landing)
     app.get("/about-me", requiresLogin, users.renderAboutMe);
     app.get("/about-me/edit", requiresLogin, users.renderEditAboutMe);
     app.post("/about-me/update", requiresLogin, users.updateAboutMe);
-    // user email
+    // user email feature - Zach
     app.get("/about-me/email", requiresLogin, users.renderEditEmail);
     app.post("/about-me/update-email", requiresLogin, users.updateEmail);
     app.post("/about-me/add-email", requiresLogin, users.addEmail);
@@ -107,7 +107,7 @@ module.exports = (app, passport, db) => {
     // admin routes
     app.get("/admin", requiresAdmin, admins.renderAdminLanding);
 
-    // post approval
+    // post approval - Zach
     app.get(
         "/admin_post_approval",
         requiresAdmin,
