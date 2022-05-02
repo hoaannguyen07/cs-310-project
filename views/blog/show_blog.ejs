@@ -9,10 +9,16 @@
             type="text/css"
             href="/stylesheets/blog/show_blog.css"
         />
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/comments/show_all.css"
+        />
     </head>
+
     <body>
-        <%- include('../partials/body_start') %> <% if (["blogger",
-        "admin"].includes(currentUser.type)) { %>
+        <%- include('../partials/body_start') %> <% if (["blogger", "admin"
+        ].includes(currentUser.type)) { %>
         <div class="blog_actions">
             <a class="btn btn-primary" href="/blogs/blog/<%= blog.id %>/edit"
                 >Update</a
@@ -32,7 +38,7 @@
                     <!-- show all tags associated with post should they be available -> Hoa  -->
                     <% if(tags) { %>
                     <div class="tags">
-                        <% tags.forEach(tag => { %>
+                        <% tags.forEach(tag=> { %>
                         <div class="tag">
                             <p><%= tag.description %></p>
                         </div>
@@ -51,6 +57,47 @@
                             Upvotes: <%= blog.num_upvotes %>
                         </button>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="make_comment">
+            <form action="/blogs/blog/<%=blog.id%>/insert" method="POST">
+                <div class="comment_input">
+                    <label for="description">Add Comment:</label>
+                    <input placeholder="Description" name="description" required />
+                </div>
+                <button class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <% } %> <% if(comments) { %>
+        <div class="card">
+            <div class="card-body">
+                <div class="text-body">
+                    <h5>Comments:</h5>
+                    <div class="blog_comments">
+                        <% comments.forEach(comment=> { %>
+                        <div class="blog_comment_block">
+                            <p class="blog_comment"><%= comment.body %></p>
+                            <div class="comment_actions">
+                                <a
+                                    class="btn btn-primary"
+                                    href="/blogs/blog/<%=comment.id %>/editComm"
+                                    >Edit</a
+                                >
+                                <form
+                                    action="/blogs/blog/<%=comment.id%>/deleteComm"
+                                    method="POST"
+                                >
+                                    <button class="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <% }) %>
+                    </div>
                 </div>
             </div>
         </div>

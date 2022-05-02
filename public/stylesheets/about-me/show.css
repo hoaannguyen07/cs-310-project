@@ -1,0 +1,13 @@
+.user_info {
+    margin-bottom: 40px;
+}
+
+.email_txt {
+    font-size: medium;
+    color: dimgray;
+    margin-left: 1em;
+}
+
+.edit_profile_btn {
+    margin: 20px 0;
+}

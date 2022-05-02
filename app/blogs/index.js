@@ -6,6 +6,40 @@ module.exports = {
         res.render("blog/new");
     },
 
+    // AARON WEAST
+    renderEditCommPage: (req, res) => {
+        // RENDER PAGE TO EDIT COMMENTS
+        let { comment_id } = req.params;
+
+        db.query(
+            "SELECT comments.id, comments.body FROM comments WHERE comments.id=$1;",
+            [comment_id],
+            (comm_err, comm_result) => {
+                if (comm_err) {
+                    // even if tags cannot be queried, post can still be shown, just with the tags it is associated with -> Hoa
+                    req.flash(
+                        "error",
+                        "Unable to query commments for this blog post"
+                    );
+                    return res.render("blog/show_blog", {
+                       // make sure that no tags are rendered -> Hoa
+                        comments: undefined,
+                    });
+                }
+                // show blog and pass in the blog info along with the tags associated with the blogs -> Victoria & Hoa
+                return res.render("comments/edit", {
+                    
+                    comments: comm_result.rows,
+                });
+            }
+            
+        );
+
+        // res.render("comments/edit");
+    },
+
+    
+
     createPost: (req, res) => {
         // get info from password in form to make the post -> Victoria
         const { title, body } = req.body;
@@ -69,17 +103,36 @@ module.exports = {
                                 "error",
                                 "Unable to query tags for this blog post"
                             );
-                            return res.render("blog/show_blog", {
-                                blog: blog_result.rows[0], // blog info is still there to be rendered -> Victoria
-                                tags: undefined, // make sure that no tags are rendered -> Hoa
-                            });
                         }
                         // show blog and pass in the blog info along with the tags associated with the blogs -> Victoria & Hoa
-                        return res.render("blog/show_blog", {
-                            blog: blog_result.rows[0],
-                            tags: tags_result.rows,
-                        });
+                        
+                        db.query(
+                            "SELECT comments.id, comments.body FROM comments WHERE comments.post_id=$1;",
+                            [blog_id],
+                            (comm_err, comm_result) => {
+                                if (comm_err) {
+                                    // even if tags cannot be queried, post can still be shown, just with the tags it is associated with -> Hoa
+                                    req.flash(
+                                        "error",
+                                        "Unable to query commments for this blog post"
+                                    );
+                                    return res.render("blog/show_blog", {
+                                        blog: blog_result.rows[0], // blog info is still there to be rendered -> Victoria
+                                        tags: undefined, // make sure that no tags are rendered -> Hoa
+                                        comments: undefined,
+                                    });
+                                }
+                                // show blog and pass in the blog info along with the tags associated with the blogs -> Victoria & Hoa
+                                return res.render("blog/show_blog", {
+                                    blog: blog_result.rows[0],
+                                    tags: tags_result.rows,
+                                    comments: comm_result.rows,
+                                });
+                            }
+                            
+                        );
                     }
+                    
                 );
             }
         );
@@ -254,6 +307,100 @@ module.exports = {
                     req.flash("success", "Successfully upvoted post.");
                 }
                 res.redirect(`/blogs/blog/${blog_id}`);
+            }
+        );
+    },
+
+    insertComm2: (req, res) => {
+        // get passed in through params to upvote a specific blog -> Victoria
+        const { blog_id } = req.params;
+        const {description} = req.body;
+
+        // update blog num_upvotes -> Victoria
+        db.query(
+            "INSERT INTO comments (post_id, body, user_id) VALUES ($1,$2, 2);",
+            [blog_id,description],
+            (err, result) => {
+                // go back show blog page either way if query is successful but show message of it being successful of not -> Victoria
+                if (err) {
+                    req.flash("error", "Unable to add comment.");
+                } else {
+                    req.flash("success", "Successfully added comment.");
+                }
+                res.redirect(`/blogs/blog/${blog_id}`);
+            }
+        );
+    },
+
+    insertComm: (req, res) => {
+        // DONE BY AARON WEAST
+        // FUNCTION TO INSERT COMMENT INTO UNAPPROVED COMMENTS
+        const { blog_id } = req.params;
+        const { description } = req.body;
+        
+        console.log("blod_id:", blog_id);
+        console.log("description:", description);
+        
+        // const { body } = req.body;
+
+        // CREATE NEW COMMENT
+        db.query(
+            "INSERT INTO unapproved_comments (post_id, body, user_id) VALUES ($1, $2, $3)",
+            [blog_id,description,req.user.id],
+            (err, result) => {
+                if (err) {
+                    
+                    req.flash("error", "Unable to create a new comment.");
+                    return res.redirect("/blogs/new");
+                }
+                // REDIRECT AFTER FINISH
+                req.flash("success", "comment created successfully.");
+                return res.redirect("/home");
+            }
+        );
+    },
+
+    deleteComm: (req, res) => {
+        // DONE BY AARON WEAST
+        // DELETE COMMENT FUNCTION
+       
+        const { comment_id } = req.params;
+
+        // DELETE COMMENT 
+        db.query("DELETE FROM comments WHERE id=$1;", [comment_id], (err, result) => {
+            // ERROR CHECK AND REDIRECT
+            if (err) {
+                req.flash("error", "Unable to delete comment.");
+            } else {
+                req.flash("success", "Successfully deleted comment.");
+            }
+            res.redirect(`/home`);
+        });
+    },
+
+    updateComm: (req, res) => {
+        // DONE BY AARON WEAST
+        // FUNCTION TO UPDATE COMMENT ON POST
+        
+        const { comment_id } = req.params;
+        const { description } = req.body;
+
+        
+
+        // UPDATE COMMENT FROM INPUT
+        db.query(
+            "UPDATE comments SET body=$1 WHERE id=$2;",
+            [description, comment_id],
+            (err, result) => {
+                // ERROR CHECK AND REDIRECT
+                if (err) {
+                    req.flash("error", `Unable to update comment ${comment_id}`);
+                } else {
+                    req.flash("success", `Comment ${comment_id} updated successfully.`);
+                }
+
+                
+                return res.redirect("/home");
             }
         );
     },

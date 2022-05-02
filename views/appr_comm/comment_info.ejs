@@ -10,28 +10,30 @@
             href="/stylesheets/tag/info.css"
         />
     </head>
+    <!-- PAGE DONE BY AARON WEAST
+        THIS PAGE IS DIRECTED TO AFTER AN ADMIN
+        WANTS TO UPDATE AN UNAPPROVED COMMENT -->
     <body>
         <%- include('../partials/body_start') %>
 
         <div>
-            <h1>Update Tag</h1>
+            <h1>Update Comment</h1>
         </div>
 
-        <!-- show section to view specific tag & update tag -> Victoria -->
         <form
-            name="update-tag"
-            action="/tags/tag/<%= tag.id %>/update"
+            name="update-comm"
+            action="/appr_comments/unapproved_comment/<%= unapproved_comment.id %>/update"
             method="POST"
         >
             <div class="grid-row">
-                <label for="description">Tag Description: </label>
+                <label for="description">Comment Body: </label>
                 <input
-                    value="<%- tag.description %>"
+                    value="<%- unapproved_comment.body %>"
                     name="description"
                     required
                 />
             </div>
-            <button class="btn btn-primary" type="submit">Update Tag</button>
+            <button class="btn btn-primary" type="submit">Update Comment</button>
         </form>
 
         <%- include("../partials/standard_footer.ejs") %>

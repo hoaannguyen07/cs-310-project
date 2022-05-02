@@ -14,8 +14,10 @@
         <%- include('../partials/body_start') %>
 
         <h1>Show All Tags</h1>
+
         <a class="btn btn-primary" href="/tags/new">Add Tag</a>
 
+        <!-- Show tags if there are tags from show (passed in from the backend) -> Victoria  -->
         <% if (tags) { %>
         <table class="tags">
             <tr>
@@ -27,12 +29,14 @@
                 <td><%= tag.description %></td>
                 <td>
                     <div class="action-btns">
+                        <!-- button to go show the specific tag (to view & update) -> Victoria  -->
                         <a
                             class="btn btn-primary"
                             href="/tags/tag/<%- tag.id %>"
                             >Update</a
                         >
 
+                        <!-- button to delete specific tag -> Victoria  -->
                         <form
                             action="/tags/tag/<%= tag.id %>/delete"
                             method="POST"

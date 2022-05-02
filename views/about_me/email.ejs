@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/about-me/edit.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+        <!-- Show email info in form by radio button so they can update info - Zach  -->
+        <!-- Buttons will show checked by their current status and send the appropriate values when form is submitted -->
+        <form action="/about-me/update-email" method="POST">
+            <h1>Edit Email Notifications</h1>
+            <div class="grid-row">
+                <label for="post">Post notifications: <%- (email_list.allow_post_notifications) %></label>
+                <span>
+                    <% if (email_list.allow_post_notifications){ %>
+                        <label for="yes">Yes: </label>
+                        <input
+                        value="1"
+                        type="radio"
+                        name="post"
+                        checked
+                        id="yes"
+                    />
+                    <label for="no">No: </label>
+                        <input
+                            value="0"
+                            type="radio"
+                            name="post"
+                            id="no"
+                        />
+                    <% } else { %>
+                        <label for="yes">Yes: </label>
+                        <input
+                        value="1"
+                        type="radio"
+                        name="post"
+                        id="yes"
+                    />
+                    <label for="no">No: </label>
+                        <input
+                            value="0"
+                            type="radio"
+                            name="post"
+                            checked
+                            id="no"
+                        />
+                       
+                    <% } %>
+            </div>
+            <div class="grid-row">
+                <label for="comment">Comment notifications: </label>
+                <span>
+                    
+                    <% if (email_list.allow_comment_notifications){ %>
+                        <label for="yes">Yes: </label>
+                        <input
+                    value="1"
+                    type="radio"
+                    name="comment"
+                    checked
+                    id="yes"
+
+                />
+                <label for="no">No: </label>
+                    <input
+                        value="0"
+                        type="radio"
+                        name="comment"
+                        id="no"
+
+                    />
+                <% } else { %>
+                    <label for="yes">Yes: </label>
+                    <input
+                    value="1"
+                    type="radio"
+                    name="comment"
+                    id="yes"
+
+                />
+                <label for="no">No: </label>
+                    <input
+                        value="0"
+                        type="radio"
+                        name="comment"
+                        checked
+                        id="no"
+
+                    />
+                    
+                <% } %>
+                </span>
+            </div>
+            
+            <button class="btn btn-primary update_btn" type="submit">
+                Update Email Notifications
+            </button>
+        </form>
+        <br>
+        <!-- email list delete feature to remove the current user's email from the list -->
+        <form action="/about-me/delete-email" method="POST">
+            <button class="btn btn-danger" type="submit">
+                Unsubscribe
+            </button>
+        </form>
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>
