@@ -16,27 +16,98 @@
         <form action="/about-me/update-email" method="POST">
             <h1>Edit Email Notifications</h1>
             <div class="grid-row">
-                <label for="post">Post notifications: </label>
-                <input
-                    value="<%- email_list.allow_post_notifications %>"
-                    type="checkbox"
-                    name="post"
-                />
+                <label for="post">Post notifications: <%- (email_list.allow_post_notifications) %></label>
+                <span>
+                    <% if (email_list.allow_post_notifications){ %>
+                        <label for="yes">Yes: </label>
+                        <input
+                        value="1"
+                        type="radio"
+                        name="post"
+                        checked
+                        id="yes"
+                    />
+                    <label for="no">No: </label>
+                        <input
+                            value="0"
+                            type="radio"
+                            name="post"
+                            id="no"
+                        />
+                    <% } else { %>
+                        <label for="yes">Yes: </label>
+                        <input
+                        value="1"
+                        type="radio"
+                        name="post"
+                        id="yes"
+                    />
+                    <label for="no">No: </label>
+                        <input
+                            value="0"
+                            type="radio"
+                            name="post"
+                            checked
+                            id="no"
+                        />
+                       
+                    <% } %>
             </div>
             <div class="grid-row">
                 <label for="comment">Comment notifications: </label>
-                <input
-                    value="<%- email_list.allow_comment_notifications %>"
-                    type="checkbox"
+                <span>
+                    
+                    <% if (email_list.allow_comment_notifications){ %>
+                        <label for="yes">Yes: </label>
+                        <input
+                    value="1"
+                    type="radio"
                     name="comment"
+                    checked
+                    id="yes"
+
                 />
+                <label for="no">No: </label>
+                    <input
+                        value="0"
+                        type="radio"
+                        name="comment"
+                        id="no"
+
+                    />
+                <% } else { %>
+                    <label for="yes">Yes: </label>
+                    <input
+                    value="1"
+                    type="radio"
+                    name="comment"
+                    id="yes"
+
+                />
+                <label for="no">No: </label>
+                    <input
+                        value="0"
+                        type="radio"
+                        name="comment"
+                        checked
+                        id="no"
+
+                    />
+                    
+                <% } %>
+                </span>
             </div>
             
             <button class="btn btn-primary" type="submit">
                 Update Email Notifications
             </button>
         </form>
-
+        <br>
+        <form action="/about-me/delete-email" method="POST">
+            <button class="btn btn-danger" type="submit">
+                Unsubscribe
+            </button>
+        </form>
         <%- include("../partials/standard_footer.ejs") %>
     </body>
 </html>

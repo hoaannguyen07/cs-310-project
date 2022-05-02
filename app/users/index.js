@@ -63,7 +63,6 @@ module.exports = {
                     req.flash("error", "Unable to query email list");
                     return res.render("/home");
                 }
-                console.log(result.rows)
                 return res.render("about_me/show", {
                     email_list: result.rows[0],
                 });
@@ -108,8 +107,8 @@ module.exports = {
                     req.flash("error", "Unable to query email list");
                     return res.render("/about_me");
                 }
-                console.log(result.rows)
-                return res.render("/about_me/email", {
+                console.log(result.rows[0])
+                return res.render("about_me/email", {
                     email_list: result.rows[0],
                 });
             }
@@ -124,11 +123,13 @@ module.exports = {
             (err, result) => {
                 // failure if there's an error or if anything other than 1 row is
                 if (err || result.rowCount != 1) {
+                    console.log("post " + post)
                     req.flash(
                         "error",
                         `Error updating email information`
                     );
                 } else {
+                    console.log("post " + post)
                     req.flash(
                         "success",
                         `Successfully updated email information`
