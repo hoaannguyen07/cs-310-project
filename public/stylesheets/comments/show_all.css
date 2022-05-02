@@ -1,26 +1,29 @@
 .comments {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    width: 30%;
+    border-collapse: collapse;
+    margin: 20px 0;
 }
 
-.comment_block {
+tr {
     width: 100%;
-    padding: 15px 0;
-    border-bottom: 1px solid #eae7e7;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.comment {
-    padding: 1px 20px;
-    margin: auto 0;
-    border-radius: 30px;
-    background-color: #eae7e7;
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+td,
+th {
+    min-width: 50px;
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+}
+
+.action-btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .comment_actions {
