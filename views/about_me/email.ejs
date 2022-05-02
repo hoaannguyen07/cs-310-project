@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include("../partials/standard_header.ejs") %>
+
+        <!-- Custom CSS -->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="/stylesheets/about-me/edit.css"
+        />
+    </head>
+    <body>
+        <%- include('../partials/body_start') %>
+        <!-- Show user info in form form so they can update info but they can't change username (no one can) or user type (job of an admin) -> Hoa  -->
+        <form action="/about-me/update-email" method="POST">
+            <h1>Edit Email Notifications</h1>
+            <div class="grid-row">
+                <label for="post">Post notifications: </label>
+                <input
+                    value="<%- email_list.allow_post_notifications %>"
+                    type="checkbox"
+                    name="post"
+                />
+            </div>
+            <div class="grid-row">
+                <label for="comment">Comment notifications: </label>
+                <input
+                    value="<%- email_list.allow_comment_notifications %>"
+                    type="checkbox"
+                    name="comment"
+                />
+            </div>
+            
+            <button class="btn btn-primary" type="submit">
+                Update Email Notifications
+            </button>
+        </form>
+
+        <%- include("../partials/standard_footer.ejs") %>
+    </body>
+</html>

@@ -10,7 +10,22 @@
         <%- include('../partials/body_start') %>
         <!-- Show user information -> Hoa  -->
         <div>
-            <h2>Email: <%- currentUser.email %></h2>
+            <h2>Email: <%- currentUser.email %> <%- email_list %></h2>
+                <% if (email_list == null){ %>
+                    <h3>Email not registered for our list</h3>
+                <% } else { %>
+                    <h3>Email is registered for our list:</h3>
+                    <% if (email_list.allow_post_notifications == true){ %>
+                        <h3>Email registered for post notifications</h3>
+                    <% } else { %>
+                        <h3>Email not registered for post notifications</h3>
+                    <% } %>
+                    <% if (email_list.allow_comment_notifications == true){ %>
+                        <h3>Email registered for comment notifications</h3>
+                    <% } else { %>
+                        <h3>Email not registered for comment notifications</h3>
+                    <% } %>
+                <% } %>
             <h2>Username: <%- currentUser.username %></h2>
             <h2>Type: <%- currentUser.type %></h2>
         </div>
@@ -18,5 +33,15 @@
         <%- include("../partials/standard_footer.ejs") %>
 
         <a class="btn btn-primary" href="/about-me/edit">Edit Profile</a>
+        <br>
+        <% if (email_list == null){ %>
+            <form action="/about-me/add-email" method="POST">
+                <button class="btn btn-primary" type="submit">
+                    Sign Up for Email Notifications
+                </button>
+            </form>
+        <% } else { %>
+            <a class="btn btn-primary" href="/about-me/email">Edit or Unsubscribe from Email Notifications</a>
+        <% } %>
     </body>
 </html>
